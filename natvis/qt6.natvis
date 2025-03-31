@@ -51,7 +51,18 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="##NAMESPACE##::QUuid">
-        <DisplayString>{{{data1,Xb}-{data2,Xb}-{data3,Xb}-{(data4[0]),nvoXb}{(data4[1]),nvoXb}-{(data4[2]),nvoXb}{(data4[3]),nvoXb}{(data4[4]),nvoXb}{(data4[5]),nvoXb}{(data4[6]),nvoXb}{(data4[7]),nvoXb}}}</DisplayString>
+      <DisplayString>{{{data1,Xb}-{data2,Xb}-{data3,Xb}-{(data4[0]),nvoXb}{(data4[1]),nvoXb}-{(data4[2]),nvoXb}{(data4[3]),nvoXb}{(data4[4]),nvoXb}{(data4[5]),nvoXb}{(data4[6]),nvoXb}{(data4[7]),nvoXb}}}</DisplayString>
+      <Expand>
+        <Item Name="[Time-low]">data1,Xb</Item>
+        <Item Name="[Time-mid]">data2,Xb</Item>
+        <Item Name="[Time-high-and-version]">data3,Xb</Item>
+        <Synthetic Name="[Clock-seq]">
+          <DisplayString>{(data4[0]),nvoXb}{(data4[1]),nvoXb}</DisplayString>
+        </Synthetic>
+        <Synthetic Name="[Node]">
+          <DisplayString>{(data4[2]),nvoXb}{(data4[3]),nvoXb}{(data4[4]),nvoXb}{(data4[5]),nvoXb}{(data4[6]),nvoXb}{(data4[7]),nvoXb}</DisplayString>
+        </Synthetic>
+      </Expand>
     </Type>
 
    <Type Name="##NAMESPACE##::QSpecialInteger&lt;*&gt;">
@@ -198,17 +209,21 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="##NAMESPACE##::QMatrix">
-        <DisplayString>
-            {{ m11 = {_m11}, m12 = {_m12}, m21 = {_m21}, m22 = {_m22}, ... }}
-        </DisplayString>
+    <Type Name="##NAMESPACE##::QGenericMatrix&lt;*,*,*&gt;">
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x3"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x4"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x3"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x4"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix4x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix4x3"/>
+        <DisplayString>Columns: [{$T1}], Rows: [{$T2}]</DisplayString>
         <Expand>
-            <Item Name="[m11]">_m11</Item>
-            <Item Name="[m12]">_m12</Item>
-            <Item Name="[m21]">_m21</Item>
-            <Item Name="[m22]">_m22</Item>
-            <Item Name="[dx]">_dx</Item>
-            <Item Name="[dy]">_dy</Item>
+            <ArrayItems>
+                <Size>$T1*$T2</Size>
+                <ValuePointer>*m</ValuePointer>
+            </ArrayItems>
         </Expand>
     </Type>
 
