@@ -1,0 +1,5 @@
+{
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.buildDirectory": "${workspaceFolder}/builds/${buildKit}/${buildType}",
+    "cmake.useCMakePresets": "never",
+}
