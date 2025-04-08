@@ -424,6 +424,16 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
+   <Type Name="##NAMESPACE##::QSpan&lt;*&gt;">
+        <DisplayString>{{ size={m_size} }}</DisplayString>
+        <Expand>
+            <ArrayItems>
+                <Size>m_size</Size>
+                <ValuePointer>reinterpret_cast&lt;$T1*&gt;(m_data)</ValuePointer>
+            </ArrayItems>
+        </Expand>
+    </Type>
+
    <Type Name="##NAMESPACE##::QVarLengthArray&lt;*,*&gt;">
         <DisplayString>{{ size={s} }}</DisplayString>
         <Expand>
