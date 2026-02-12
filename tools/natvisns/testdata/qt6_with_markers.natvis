@@ -8,25 +8,17 @@ Copyright (C) 2020 Aleksey Nikolaev
 SPDX-License-Identifier: MIT
 -->
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-    <!-- qt-type: QMetaType -->
-    <!-- qt-type: Qt -->
-    <!-- qt-type: QtPrivate -->
-    <!-- qt-type: QMetaTypeInterface -->
-    <!-- qt-type: QAbstractSocket -->
-    <!-- qt-type: QAtomicInt -->
-    <!-- qt-type: QHashDummyValue -->
-
     <UIVisualizer ServiceId="{A452AFEA-3DF6-46BB-9177-C0B08F318025}" Id="1"
             MenuName="Add to Image Watch"/>
 
-    <Type Name="QPropertyData&lt;*&gt;">
+    <Type Name="##NAMESPACE##::QPropertyData&lt;*&gt;">
         <DisplayString>{val}</DisplayString>
         <Expand>
             <Item Name="[value]">val</Item>
         </Expand>
     </Type>
 
-    <Type Name="QQuickItemPrivate">
+    <Type Name="##NAMESPACE##::QQuickItemPrivate">
         <Intrinsic Name="_hasExtraData" Expression="extra.d.d != 0" />
         <Intrinsic Name="_extraData" Expression="(*(ExtraData*)extra.d.d)" />
         <Intrinsic Name="_objectName" Expression="(extraData-&gt;objectName).val.d.ptr" />
@@ -51,14 +43,14 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QQuickItem">
+    <Type Name="##NAMESPACE##::QQuickItem">
       <DisplayString>{d_ptr.d,na}</DisplayString>
       <Expand>
         <ExpandedItem>d_ptr.d</ExpandedItem>
       </Expand>
     </Type>
 
-    <Type Name="QUuid">
+    <Type Name="##NAMESPACE##::QUuid">
       <DisplayString>{{{data1,Xb}-{data2,Xb}-{data3,Xb}-{(data4[0]),nvoXb}{(data4[1]),nvoXb}-{(data4[2]),nvoXb}{(data4[3]),nvoXb}{(data4[4]),nvoXb}{(data4[5]),nvoXb}{(data4[6]),nvoXb}{(data4[7]),nvoXb}}}</DisplayString>
       <Expand>
         <Item Name="[Time-low]">data1,Xb</Item>
@@ -73,21 +65,21 @@ SPDX-License-Identifier: MIT
       </Expand>
     </Type>
 
-   <Type Name="QSpecialInteger&lt;*&gt;">
+   <Type Name="##NAMESPACE##::QSpecialInteger&lt;*&gt;">
         <DisplayString>{val}</DisplayString>
         <Expand>
             <Item Name="[value]">val</Item>
         </Expand>
     </Type>
 
-   <Type Name="QBasicAtomicInteger&lt;*&gt;">
+   <Type Name="##NAMESPACE##::QBasicAtomicInteger&lt;*&gt;">
         <DisplayString>{_q_value}</DisplayString>
         <Expand>
             <Item Name="[value]">_q_value</Item>
         </Expand>
     </Type>
 
-   <Type Name="QBasicAtomicPointer&lt;*&gt;">
+   <Type Name="##NAMESPACE##::QBasicAtomicPointer&lt;*&gt;">
         <Intrinsic Name="isNull" Expression="value()==0" />
         <Intrinsic Name="value" Expression="_q_value.value()" />
         <DisplayString Condition="isNull()">empty</DisplayString>
@@ -97,7 +89,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QBasicAtomicPointer&lt;void&gt;">
+    <Type Name="##NAMESPACE##::QBasicAtomicPointer&lt;void&gt;">
         <Intrinsic Name="isNull" Expression="value()==0" />
         <Intrinsic Name="value" Expression="_q_value.value()" />
         <DisplayString Condition="isNull()">empty</DisplayString>
@@ -107,8 +99,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QPoint">
-        <AlternativeType Name="QPointF"/>
+   <Type Name="##NAMESPACE##::QPoint">
+        <AlternativeType Name="##NAMESPACE##::QPointF"/>
         <DisplayString>{{ x = {xp}, y = {yp} }}</DisplayString>
         <Expand>
             <Item Name="[x]">xp</Item>
@@ -116,7 +108,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QRect">
+   <Type Name="##NAMESPACE##::QRect">
         <DisplayString>{{ x = {x1}, y = {y1}, width = {x2 - x1 + 1}, height = {y2 - y1 + 1} }}</DisplayString>
         <Expand>
             <Item Name="[x]">x1</Item>
@@ -126,7 +118,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QRectF">
+   <Type Name="##NAMESPACE##::QRectF">
         <DisplayString>{{ x = {xp}, y = {yp}, width = {w}, height = {h} }}</DisplayString>
         <Expand>
             <Item Name="[x]">xp</Item>
@@ -136,8 +128,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QSize">
-        <AlternativeType Name="QSizeF"/>
+   <Type Name="##NAMESPACE##::QSize">
+        <AlternativeType Name="##NAMESPACE##::QSizeF"/>
         <DisplayString>{{ width = {wd}, height = {ht} }}</DisplayString>
         <Expand>
             <Item Name="[width]">wd</Item>
@@ -145,8 +137,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QLine">
-        <AlternativeType Name="QLineF"/>
+   <Type Name="##NAMESPACE##::QLine">
+        <AlternativeType Name="##NAMESPACE##::QLineF"/>
         <DisplayString>{{ start point = {pt1}, end point = {pt2} }}</DisplayString>
         <Expand>
             <Synthetic Name="[start point]">
@@ -165,7 +157,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QPolygon">
+   <Type Name="##NAMESPACE##::QPolygon">
         <DisplayString>{{ size={d.size} }}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -175,7 +167,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QPolygonF">
+   <Type Name="##NAMESPACE##::QPolygonF">
         <DisplayString>{{ size={d.size} }}</DisplayString>
         <Expand>
             <Item Name="[closed]">
@@ -190,7 +182,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QVector2D">
+    <Type Name="##NAMESPACE##::QVector2D">
         <DisplayString>{{ x = {v[0]}, y = {v[1]} }}</DisplayString>
         <Expand>
             <Item Name="[x]">v[0]</Item>
@@ -198,7 +190,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QVector3D">
+    <Type Name="##NAMESPACE##::QVector3D">
         <DisplayString>{{ x = {v[0]}, y = {v[1]}, z = {v[2]} }}</DisplayString>
         <Expand>
             <Item Name="[x]">v[0]</Item>
@@ -207,7 +199,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QVector4D">
+    <Type Name="##NAMESPACE##::QVector4D">
         <DisplayString>{{ x = {v[0]}, y = {v[1]}, z = {v[2]}, w = {v[3]} }}</DisplayString>
         <Expand>
             <Item Name="[x]">v[0]</Item>
@@ -217,15 +209,15 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QGenericMatrix&lt;*,*,*&gt;">
-        <AlternativeType Name="QMatrix2x2"/>
-        <AlternativeType Name="QMatrix2x3"/>
-        <AlternativeType Name="QMatrix2x4"/>
-        <AlternativeType Name="QMatrix3x2"/>
-        <AlternativeType Name="QMatrix3x3"/>
-        <AlternativeType Name="QMatrix3x4"/>
-        <AlternativeType Name="QMatrix4x2"/>
-        <AlternativeType Name="QMatrix4x3"/>
+    <Type Name="##NAMESPACE##::QGenericMatrix&lt;*,*,*&gt;">
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x3"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix2x4"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x3"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix3x4"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix4x2"/>
+        <AlternativeType Name="##NAMESPACE##::QMatrix4x3"/>
         <DisplayString>Columns: [{$T1}], Rows: [{$T2}]</DisplayString>
         <Expand>
             <ArrayItems>
@@ -235,7 +227,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QMatrix4x4">
+    <Type Name="##NAMESPACE##::QMatrix4x4">
         <DisplayString>
             {{ m11 = {m[0][0]}, m12 = {m[1][0]}, m13 = {m[2][0]}, m14 = {m[3][0]}, ... }}
         </DisplayString>
@@ -259,19 +251,19 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QSizePolicy">
+   <Type Name="##NAMESPACE##::QSizePolicy">
         <DisplayString>
             {{ horizontal = {static_cast&lt;Policy&gt;(bits.horPolicy)}, vertical = {static_cast&lt;Policy&gt;(bits.verPolicy)}, type = {ControlType(1 &lt;&lt; bits.ctype)} }}
         </DisplayString>
         <Expand>
             <Synthetic Name="[vertical policy]">
-                <DisplayString>QSizePolicy::Policy::{static_cast&lt;Policy&gt;(bits.verPolicy)}</DisplayString>
+                <DisplayString>##NAMESPACE##::QSizePolicy::Policy::{static_cast&lt;Policy&gt;(bits.verPolicy)}</DisplayString>
             </Synthetic>
             <Synthetic Name="[horizontal policy]">
-                <DisplayString>QSizePolicy::Policy::{static_cast&lt;Policy&gt;(bits.horPolicy)}</DisplayString>
+                <DisplayString>##NAMESPACE##::QSizePolicy::Policy::{static_cast&lt;Policy&gt;(bits.horPolicy)}</DisplayString>
             </Synthetic>
             <Synthetic Name="[control type]">
-                <DisplayString>QSizePolicy::ControlType::{ControlType(1 &lt;&lt; bits.ctype)}</DisplayString>
+                <DisplayString>##NAMESPACE##::QSizePolicy::ControlType::{ControlType(1 &lt;&lt; bits.ctype)}</DisplayString>
             </Synthetic>
             <Synthetic Name="[expanding directions]">
                 <DisplayString
@@ -290,7 +282,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QChar">
+   <Type Name="##NAMESPACE##::QChar">
         <DisplayString>{ucs,c}</DisplayString>
         <StringView>ucs,c</StringView>
         <Expand>
@@ -299,7 +291,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QString">
+   <Type Name="##NAMESPACE##::QString">
         <DisplayString>{(reinterpret_cast&lt;unsigned short*&gt;(d.ptr)),sub}</DisplayString>
         <StringView>(reinterpret_cast&lt;unsigned short*&gt;(d.ptr)),sub</StringView>
         <Expand>
@@ -311,7 +303,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QStringRef">
+    <Type Name="##NAMESPACE##::QStringRef">
         <DisplayString Condition="m_string == nullptr">{m_string,[m_size]} u""</DisplayString>
         <DisplayString Condition="m_string != nullptr">{m_string-&gt;d.ptr+m_position,[m_size]}</DisplayString>
         <StringView Condition="m_string == nullptr">""</StringView>
@@ -326,7 +318,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QStringView">
+    <Type Name="##NAMESPACE##::QStringView">
         <DisplayString>{m_data,[m_size]}</DisplayString>
         <StringView>m_data,[m_size]</StringView>
         <Expand>
@@ -338,7 +330,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QByteArray">
+    <Type Name="##NAMESPACE##::QByteArray">
         <DisplayString>&quot;{((reinterpret_cast&lt;char*&gt;(d.ptr))),sb}&quot;</DisplayString>
         <StringView>((reinterpret_cast&lt;char*&gt;(d.ptr))),sb</StringView>
         <Expand>
@@ -350,20 +342,20 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QUrl">
+    <Type Name="##NAMESPACE##::QUrl">
         <Intrinsic Name="isEmpty" Expression="size==0">
             <Parameter Name="size" Type="int"/>
         </Intrinsic>
-        <Intrinsic Name="memberOffset" Expression="sizeof(QAtomicInt) + sizeof(int) + (sizeof(QString) * count)">
+        <Intrinsic Name="memberOffset" Expression="sizeof(##NAMESPACE##::QAtomicInt) + sizeof(int) + (sizeof(##NAMESPACE##::QString) * count)">
             <Parameter Name="count" Type="int"/>
         </Intrinsic>
-        <Intrinsic Name="scheme" Expression="*((QString*)(((char*)(d) + memberOffset(0))))" />
-        <Intrinsic Name="username" Expression="*((QString*)(((char*)(d) + memberOffset(1))))" />
-        <Intrinsic Name="password" Expression="*((QString*)(((char*)(d) + memberOffset(2))))" />
-        <Intrinsic Name="host" Expression="*((QString*)(((char*)(d) + memberOffset(3))))" />
-        <Intrinsic Name="path" Expression="*((QString*)(((char*)(d) + memberOffset(4))))" />
-        <Intrinsic Name="query" Expression="*((QString*)(((char*)(d) + memberOffset(5))))" />
-        <Intrinsic Name="fragment" Expression="*((QString*)(((char*)(d) + memberOffset(6))))" />
+        <Intrinsic Name="scheme" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(0))))" />
+        <Intrinsic Name="username" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(1))))" />
+        <Intrinsic Name="password" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(2))))" />
+        <Intrinsic Name="host" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(3))))" />
+        <Intrinsic Name="path" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(4))))" />
+        <Intrinsic Name="query" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(5))))" />
+        <Intrinsic Name="fragment" Expression="*((##NAMESPACE##::QString*)(((char*)(d) + memberOffset(6))))" />
 
         <!-- Full URL with everything -->
         <DisplayString Condition="!isEmpty(scheme().d.size)
@@ -430,7 +422,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QDate">
+    <Type Name="##NAMESPACE##::QDate">
         <!-- formula from https://aa.usno.navy.mil/faq/JD_formula -->
         <Intrinsic Name="L1" Expression="jd + 68569" />
         <Intrinsic Name="N" Expression="4 * L1() / 146097" />
@@ -453,7 +445,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QTime">
+   <Type Name="##NAMESPACE##::QTime">
         <Intrinsic Name="hour" Expression="mds / 3600000" />
         <Intrinsic Name="minute" Expression="(mds % 3600000) / 60000" />
         <Intrinsic Name="second" Expression="(mds / 1000) % 60" />
@@ -480,7 +472,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QPair&lt;*,*&gt;">
+   <Type Name="##NAMESPACE##::QPair&lt;*,*&gt;">
         <DisplayString>({first}, {second})</DisplayString>
         <Expand>
             <Item Name="[first]">first</Item>
@@ -488,8 +480,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QList&lt;*&gt;">
-        <AlternativeType Name="QVector&lt;*&gt;"/>
+   <Type Name="##NAMESPACE##::QList&lt;*&gt;">
+        <AlternativeType Name="##NAMESPACE##::QVector&lt;*&gt;"/>
         <DisplayString>{{ size={d.size} }}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -499,7 +491,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QSpan&lt;*&gt;">
+   <Type Name="##NAMESPACE##::QSpan&lt;*&gt;">
         <DisplayString>{{ size={m_size} }}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -509,7 +501,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QVarLengthArray&lt;*,*&gt;">
+   <Type Name="##NAMESPACE##::QVarLengthArray&lt;*,*&gt;">
         <DisplayString>{{ size={s} }}</DisplayString>
         <Expand>
             <Item Name="[capacity]">a</Item>
@@ -520,8 +512,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QMap&lt;*,*&gt;">
-        <AlternativeType Name="QMultiMap&lt;*,*&gt;" />
+   <Type Name="##NAMESPACE##::QMap&lt;*,*&gt;">
+        <AlternativeType Name="##NAMESPACE##::QMultiMap&lt;*,*&gt;" />
         <Intrinsic Name="p" Optional="true" Expression="d.d"></Intrinsic> <!-- before 6.9 -->
         <Intrinsic Name="p" Optional="true" Expression="d.d.ptr"></Intrinsic> <!-- after 6.9 -->
         <DisplayString>{{ size={p()-&gt;m._Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
@@ -536,7 +528,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QHashPrivate::Node&lt;*,*&gt;">
+   <Type Name="##NAMESPACE##::QHashPrivate::Node&lt;*,*&gt;">
         <DisplayString>{value}</DisplayString>
         <Expand>
             <Item Name="key">key</Item>
@@ -544,14 +536,14 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QHashPrivate::Node&lt;*,QHashDummyValue&gt;">
+    <Type Name="##NAMESPACE##::QHashPrivate::Node&lt;*,##NAMESPACE##::QHashDummyValue&gt;">
         <DisplayString>{key}</DisplayString>
         <Expand>
             <ExpandedItem>key</ExpandedItem>
         </Expand>
     </Type>
 
-   <Type Name="QHashPrivate::MultiNode&lt;*,*&gt;">
+   <Type Name="##NAMESPACE##::QHashPrivate::MultiNode&lt;*,*&gt;">
         <DisplayString Condition="value-&gt;next == 0">{value-&gt;value}</DisplayString>
         <DisplayString Condition="value-&gt;next != 0 &amp;&amp; value-&gt;next-&gt;next == 0">({value-&gt;value}, {value-&gt;next-&gt;value})</DisplayString>
         <DisplayString Condition="value-&gt;next != 0 &amp;&amp; value-&gt;next-&gt;next != 0">({value-&gt;value}, {value-&gt;next-&gt;value}, ...)</DisplayString>
@@ -564,8 +556,8 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QHash&lt;*,*&gt;">
-        <AlternativeType Name="QMultiHash&lt;*,*&gt;"/>
+   <Type Name="##NAMESPACE##::QHash&lt;*,*&gt;">
+        <AlternativeType Name="##NAMESPACE##::QMultiHash&lt;*,*&gt;"/>
         <Intrinsic Name="getOffset" Category="Method" Expression="d-&gt;spans[span].offsets[offset]">
             <Parameter Name="span" Type="int" />
             <Parameter Name="offset" Type="int" />
@@ -722,15 +714,15 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-   <Type Name="QSet&lt;*&gt;">
+   <Type Name="##NAMESPACE##::QSet&lt;*&gt;">
         <DisplayString>{{ size={q_hash.d-&gt;size} }}</DisplayString>
         <Expand>
             <ExpandedItem>q_hash</ExpandedItem>
         </Expand>
     </Type>
 
-   <Type Name="QVariant">
-        <Intrinsic Name="typeId" Expression="*(int*)(&amp;((const QtPrivate::QMetaTypeInterface *)(d.packedType &lt;&lt; 2))->typeId)">
+   <Type Name="##NAMESPACE##::QVariant">
+        <Intrinsic Name="typeId" Expression="*(int*)(&amp;((const ##NAMESPACE##::QtPrivate::QMetaTypeInterface *)(d.packedType &lt;&lt; 2))->typeId)">
         </Intrinsic>
         <Intrinsic Name="dataStar" Expression="(d.is_shared ? reinterpret_cast&lt;const void *&gt;((size_t)(d.data.shared) + d.data.shared-&gt;offset) : (&amp;(d.data.data)))">
         </Intrinsic>
@@ -738,143 +730,143 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="d.is_null">(null)</DisplayString>
 
         <!-- Static core pointers -->
-        <DisplayString Condition="typeId() == QMetaType::QObjectStar">QObject*</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QObjectStar">QObject*</DisplayString>
 
         <!-- Static core template classes -->
-        <DisplayString Condition="typeId() == QMetaType::QVariantMap">{*(QMap&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantList">{*(QList&lt;QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantHash">{*(QHash&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantPair">QVariantPair</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QByteArrayList">{*(QList&lt;QByteArray&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QStringList">{*(QList&lt;QString&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantMap">{*(QMap&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantList">{*(QList&lt;QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantHash">{*(QHash&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantPair">QVariantPair</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QByteArrayList">{*(QList&lt;QByteArray&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QStringList">{*(QList&lt;QString&gt;*) dataStar()}</DisplayString>
 
        <!-- Static primitives-->
-        <DisplayString Condition="typeId() == QMetaType::Bool">{*(bool*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Int">{*(int*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UInt">{*(unsigned int*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::LongLong">{*(long long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::ULongLong">{*(unsigned long long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Double">{*(double*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::VoidStar">{*(void**) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Long">{*(long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Short">{*(short*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char">{*(char*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char16">{*(char16_t*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char32">{*(char32_t*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::ULong">{*(unsigned long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UShort">{*(unsigned short*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UChar">{*(unsigned char*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Float">{*(float*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::SChar">{*(signed char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Bool">{*(bool*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Int">{*(int*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::UInt">{*(unsigned int*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::LongLong">{*(long long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::ULongLong">{*(unsigned long long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Double">{*(double*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::VoidStar">{*(void**) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Long">{*(long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Short">{*(short*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Char">{*(char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Char16">{*(char16_t*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Char32">{*(char32_t*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::ULong">{*(unsigned long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::UShort">{*(unsigned short*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::UChar">{*(unsigned char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::Float">{*(float*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::SChar">{*(signed char*) dataStar()}</DisplayString>
 
         <!-- Static core classes -->
-        <DisplayString Condition="typeId() == QMetaType::QChar">{*(QChar*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QString">{*(QString*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QByteArray">{*(QByteArray*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QDate">{*(QDate*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTime">{*(QTime*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QDateTime">{*(QDateTime*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QUrl">{*(QUrl*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLocale">QLocale</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRect">{*(QRect*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRectF">{*(QRectF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QSize">{*(QSize*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QSizeF">{*(QSizeF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLine">{*(QLine*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLineF">{*(QLineF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPoint">{*(QPoint*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPointF">{*(QPointF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QEasingCurve">EasingCurve</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QUuid">{*(QUuid*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRegularExpression">RegularExpression</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonValue">QJsonValue</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonObject">QJsonObject</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonArray">QJsonArray</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonDocument">QJsonDocument</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborValue">QCborValue</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborArray">QCborArray</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborMap">QCborMap</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QModelIndex">QModelIndex</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPersistentModelIndex">QPersistentModelIndex</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QChar">{*(QChar*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QString">{*(QString*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QByteArray">{*(QByteArray*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QDate">{*(QDate*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QTime">{*(QTime*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QDateTime">{*(QDateTime*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QUrl">{*(QUrl*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QLocale">QLocale</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QRect">{*(QRect*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QRectF">{*(QRectF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QSize">{*(QSize*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QSizeF">{*(QSizeF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QLine">{*(QLine*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QLineF">{*(QLineF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPoint">{*(QPoint*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPointF">{*(QPointF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QEasingCurve">EasingCurve</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QUuid">{*(QUuid*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QRegularExpression">RegularExpression</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QJsonValue">QJsonValue</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QJsonObject">QJsonObject</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QJsonArray">QJsonArray</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QJsonDocument">QJsonDocument</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QCborValue">QCborValue</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QCborArray">QCborArray</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QCborMap">QCborMap</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QModelIndex">QModelIndex</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPersistentModelIndex">QPersistentModelIndex</DisplayString>
 
          <!-- Static gui classes -->
-        <DisplayString Condition="typeId() == QMetaType::QFont">QFont</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPixmap">{*(QPixmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QBrush">QBrush</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QColor">QColor</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPalette">QPalette</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QIcon">QIcon</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QImage">{*(QImage*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPolygon">{*(QPolygon*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRegion">QRegion</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QBitmap">{*(QBitmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCursor">QCursor</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QKeySequence">QKeySequence</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPen">QPen</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTextLength">QTextLength</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTextFormat">QTextFormat</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTransform">{*(QTransform*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QMatrix4x4">{*(QMatrix4x4*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector2D">{*(QVector2D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector3D">{*(QVector3D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector4D">{*(QVector4D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QQuaternion">{*(QQuaternion*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPolygonF">{*(QPolygonF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QColorSpace">QColorSpace</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QFont">QFont</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPixmap">{*(QPixmap*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QBrush">QBrush</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QColor">QColor</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPalette">QPalette</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QIcon">QIcon</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QImage">{*(QImage*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPolygon">{*(QPolygon*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QRegion">QRegion</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QBitmap">{*(QBitmap*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QCursor">QCursor</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QKeySequence">QKeySequence</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPen">QPen</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QTextLength">QTextLength</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QTextFormat">QTextFormat</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QTransform">{*(QTransform*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QMatrix4x4">{*(QMatrix4x4*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVector2D">{*(QVector2D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVector3D">{*(QVector3D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QVector4D">{*(QVector4D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QQuaternion">{*(QQuaternion*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QPolygonF">{*(QPolygonF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QColorSpace">QColorSpace</DisplayString>
 
         <!-- Static widget classes -->
-        <DisplayString Condition="typeId() == QMetaType::QSizePolicy">{*(QSizePolicy*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == ##NAMESPACE##::QMetaType::QSizePolicy">{*(QSizePolicy*) dataStar()}</DisplayString>
 
         <!-- Unhandled : display the typeId-->
-        <DisplayString>QMetaType::Type ({typeId()})</DisplayString>
+        <DisplayString>##NAMESPACE##::QMetaType::Type ({typeId()})</DisplayString>
 
         <Expand>
-            <ExpandedItem Condition="typeId() == QMetaType::QString">*(QString*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QByteArray">*(QByteArray*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QDate">*(QDate*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QTime">*(QTime*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QDateTime">*(QDateTime*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QUrl">*(QUrl*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QRect">*(QRect*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QRectF">*(QRectF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QSize">*(QSize*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QSizeF">*(QSizeF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QLine">*(QLine*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QLineF">*(QLineF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPoint">*(QPoint*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPointF">*(QPointF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QUuid">*(QUuid*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QString">*(QString*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QByteArray">*(QByteArray*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QDate">*(QDate*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QTime">*(QTime*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QDateTime">*(QDateTime*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QUrl">*(QUrl*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QRect">*(QRect*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QRectF">*(QRectF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QSize">*(QSize*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QSizeF">*(QSizeF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QLine">*(QLine*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QLineF">*(QLineF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QPoint">*(QPoint*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QPointF">*(QPointF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QUuid">*(QUuid*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == QMetaType::QPixmap">*(QPixmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QImage">*(QImage*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPolygon">*(QPolygon*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QBitmap">*(QBitmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QTransform">*(QTransform*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QMatrix4x4">*(QMatrix4x4*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector2D">*(QVector2D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector3D">*(QVector3D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector4D">*(QVector4D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QQuaternion">*(QQuaternion*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPolygonF">*(QPolygonF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QPixmap">*(QPixmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QImage">*(QImage*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QPolygon">*(QPolygon*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QBitmap">*(QBitmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QTransform">*(QTransform*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QMatrix4x4">*(QMatrix4x4*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVector2D">*(QVector2D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVector3D">*(QVector3D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVector4D">*(QVector4D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QQuaternion">*(QQuaternion*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QPolygonF">*(QPolygonF*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantMap">*(QMap&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantList">*(QList&lt;QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantHash">*(QHash&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QByteArrayList">*(QList&lt;QByteArray&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QStringList">*(QList&lt;QString&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantMap">*(QMap&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantList">*(QList&lt;QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QVariantHash">*(QHash&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QByteArrayList">*(QList&lt;QByteArray&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == ##NAMESPACE##::QMetaType::QStringList">*(QList&lt;QString&gt;*) dataStar()</ExpandedItem>
         </Expand>
    </Type>
 
-    <Type Name="QHostAddress">
+    <Type Name="##NAMESPACE##::QHostAddress">
         <Intrinsic Name="a" Expression="(*(quint32**)&amp;d)[12]" />
         <Intrinsic Name="a6" Expression="(*(unsigned char**)&amp;d)[32+offset]">
             <Parameter Name="offset" Type="quint8" />
         </Intrinsic>
         <Intrinsic Name="protocol" Expression="(*(char**)&amp;d)[52]" />
         <Intrinsic Name="isIpv4"
-            Expression="protocol()==QAbstractSocket::NetworkLayerProtocol::IPv4Protocol" />
+            Expression="protocol()==##NAMESPACE##::QAbstractSocket::NetworkLayerProtocol::IPv4Protocol" />
         <Intrinsic Name="isIpv6"
-            Expression="protocol()==QAbstractSocket::NetworkLayerProtocol::IPv6Protocol" />
+            Expression="protocol()==##NAMESPACE##::QAbstractSocket::NetworkLayerProtocol::IPv6Protocol" />
         <Intrinsic Name="rshift" Expression="(value&gt;&gt;by)&amp;0xff">
             <Parameter Name="value" Type="quint32" />
             <Parameter Name="by" Type="quint32" />
@@ -896,15 +888,15 @@ SPDX-License-Identifier: MIT
             short)(lshift(0xffff&amp;a6(14),8)|a6(15)),nvoXb}
         </DisplayString>
         <Expand>
-            <Item Name="scopeId">*((QString*)((*(char**)&amp;d)+8))</Item>
-            <Item Name="protocol">(QAbstractSocket::NetworkLayerProtocol)protocol()</Item>
+            <Item Name="scopeId">*((##NAMESPACE##::QString*)((*(char**)&amp;d)+8))</Item>
+            <Item Name="protocol">(##NAMESPACE##::QAbstractSocket::NetworkLayerProtocol)protocol()</Item>
         </Expand>
     </Type>
 
-    <Type Name="QImage" Priority="Low">
+    <Type Name="##NAMESPACE##::QImage" Priority="Low">
         <UIVisualizer ServiceId="{A452AFEA-3DF6-46BB-9177-C0B08F318025}" Id="1" />
     </Type>
-    <Type Name="QImage">
+    <Type Name="##NAMESPACE##::QImage">
         <Intrinsic Name="p" Optional="true" Expression="(qwindowsd.dll!QImageData*)d" />
         <Intrinsic Name="p" Optional="true" Expression="(Qt6Guid.dll!QImageData*)d" />
         <Intrinsic Name="p" Optional="true" Expression="(Qt6Gui.dll!QImageData*)d" />
@@ -922,10 +914,10 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QPixmap" Priority="Low">
+    <Type Name="##NAMESPACE##::QPixmap" Priority="Low">
         <UIVisualizer ServiceId="{A452AFEA-3DF6-46BB-9177-C0B08F318025}" Id="1" />
     </Type>
-    <Type Name="QPixmap">
+    <Type Name="##NAMESPACE##::QPixmap">
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Guid.dll!QRasterPlatformPixmap**)&amp;data" />
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Gui.dll!QRasterPlatformPixmap**)&amp;data" />
         <DisplayString Condition="d()" Optional="true">{{ {d()-&gt;w}x{d()-&gt;h} }}</DisplayString>
@@ -935,7 +927,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QFlags&lt;*&gt;">
+    <Type Name="##NAMESPACE##::QFlags&lt;*&gt;">
         <DisplayString>{($T1)i}</DisplayString>
         <Expand>
             <Item Name="[value]">($T1)i</Item>
@@ -943,7 +935,7 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <!-- The following types require debug symbols to be loaded. -->
-    <Type Name="QDir">
+    <Type Name="##NAMESPACE##::QDir">
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QDirPrivate**)&amp;d_ptr"></Intrinsic>
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QDirPrivate**)&amp;d_ptr"></Intrinsic>
         <DisplayString>{d()-&gt;dirEntry.m_filePath}</DisplayString>
@@ -952,7 +944,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QFileInfo">
+    <Type Name="##NAMESPACE##::QFileInfo">
         <Intrinsic Name="d" Optional="true"
             Expression="*(Qt6Cored.dll!QFileInfoPrivate**)&amp;d_ptr"></Intrinsic>
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFileInfoPrivate**)&amp;d_ptr"></Intrinsic>
@@ -962,7 +954,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QFile">
+    <Type Name="##NAMESPACE##::QFile">
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QFilePrivate**)&amp;d_ptr"></Intrinsic>
         <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFilePrivate**)&amp;d_ptr"></Intrinsic>
         <DisplayString>{d()-&gt;fileName}</DisplayString>
@@ -971,7 +963,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QDateTime">
+    <Type Name="##NAMESPACE##::QDateTime">
         <Intrinsic Name="priv" Expression="(Qt6Cored.dll!QDateTimePrivate*)d.d"></Intrinsic>
         <Intrinsic Name="status" Expression="((uintptr_t)d.d) &amp; 1 ? ((uintptr_t)d.d &amp; 0xff) : priv()-&gt;m_status.i"></Intrinsic>
         <Intrinsic Name="spec" Expression="(status() &amp; Qt6Cored.dll!QDateTimePrivate::TimeSpecMask) &gt;&gt; Qt6Cored.dll!QDateTimePrivate::TimeSpecShift"></Intrinsic>
@@ -1053,7 +1045,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-        <Type Name="QJsonDocument">
+        <Type Name="##NAMESPACE##::QJsonDocument">
         <DisplayString Condition="!d._Mypair._Myval2">empty</DisplayString>
         <Expand>
             <ExpandedItem Condition="d._Mypair._Myval2">
@@ -1062,21 +1054,21 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QJsonArray">
+    <Type Name="##NAMESPACE##::QJsonArray">
         <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;a"></Intrinsic>
         <Expand>
             <ExpandedItem>cbor(),view(arr)</ExpandedItem>
         </Expand>
     </Type>
 
-    <Type Name="QCborArray">
+    <Type Name="##NAMESPACE##::QCborArray">
         <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d"></Intrinsic>
         <Expand>
             <ExpandedItem>cbor(),view(arr)</ExpandedItem>
         </Expand>
     </Type>
 
-    <Type Name="QJsonObject">
+    <Type Name="##NAMESPACE##::QJsonObject">
         <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o"></Intrinsic>
         <DisplayString Condition="!cbor()">empty</DisplayString>
         <Expand>
@@ -1085,7 +1077,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QCborMap">
+    <Type Name="##NAMESPACE##::QCborMap">
         <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d"></Intrinsic>
         <DisplayString Condition="!cbor()">empty</DisplayString>
         <Expand>
@@ -1094,14 +1086,14 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QJsonValue">
+    <Type Name="##NAMESPACE##::QJsonValue">
         <DisplayString>{value}</DisplayString>
         <Expand>
             <ExpandedItem>value</ExpandedItem>
         </Expand>
     </Type>
 
-    <Type Name="QCborValue">
+    <Type Name="##NAMESPACE##::QCborValue">
         <DisplayString Condition="t == QCborValue::Null">null</DisplayString>
         <DisplayString Condition="t == QCborValue::Invalid">invalid</DisplayString>
         <DisplayString Condition="t == QCborValue::Undefined">undefined</DisplayString>
@@ -1143,7 +1135,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QCborContainerPrivate">
+    <Type Name="##NAMESPACE##::QCborContainerPrivate">
         <Intrinsic
                 Name="self" Expression="(Qt6Cored.dll!QCborContainerPrivate*)this" />
         <Intrinsic
@@ -1324,13 +1316,13 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QtCbor::ByteData">
+    <Type Name="##NAMESPACE##::QtCbor::ByteData">
         <Intrinsic Name="str" Expression="(const char *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
         <Intrinsic Name="bytes" Expression="(const uint8_t *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
         <Intrinsic Name="u16" Expression="(const char16_t *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
     </Type>
 
-    <Type Name="QtCbor::Element">
+    <Type Name="##NAMESPACE##::QtCbor::Element">
         <DisplayString Condition="type == QCborValue::Null">null</DisplayString>
         <DisplayString Condition="type == QCborValue::Undefined">undefined</DisplayString>
         <DisplayString Condition="type == QCborValue::False">false</DisplayString>
@@ -1341,7 +1333,7 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="type == QCborValue::Type::Map &amp;&amp; container == nullptr">{{}}</DisplayString>
     </Type>
 
-    <Type Name="QJsonDocumentPrivate">
+    <Type Name="##NAMESPACE##::QJsonDocumentPrivate">
         <Intrinsic
                         Name="self" Expression="(Qt6Cored.dll!QJsonDocumentPrivate*)this" />
         <Expand>
@@ -1349,7 +1341,7 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <Type Name="QJsonValueRef">
+    <Type Name="##NAMESPACE##::QJsonValueRef">
         <Intrinsic Name="container" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
         <Intrinsic Name="idx" Expression="is_object ? index * 2 + 1 : index" />
         <Intrinsic Name="el" Expression="container()-&gt;el(idx())"/>
@@ -1380,7 +1372,7 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <!-- Same as QJsonValueRef -->
-    <Type Name="QJsonValueConstRef">
+    <Type Name="##NAMESPACE##::QJsonValueConstRef">
         <Intrinsic Name="container" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
         <Intrinsic Name="idx" Expression="is_object ? index * 2 + 1 : index" />
         <Intrinsic Name="el" Expression="container()-&gt;el(idx())"/>
@@ -1412,13 +1404,13 @@ SPDX-License-Identifier: MIT
 
 
     <!-- Show the object name for QObject subclasses, if any -->
-    <Type Name="QObject" Inheritable="true">
+    <Type Name="##NAMESPACE##::QObject" Inheritable="true">
         <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
         <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
         <DisplayString Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
     </Type>
     <!-- Show the dynamic properties, but only when opening the QObject under the real object -->
-    <Type Name="QObject" Inheritable="false">
+    <Type Name="##NAMESPACE##::QObject" Inheritable="false">
         <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
         <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
         <DisplayString Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
