@@ -400,6 +400,7 @@ SPDX-License-Identifier: MIT
         <Intrinsic Name="memberOffset" Expression="sizeof(QAtomicInt) + sizeof(int) + (sizeof(QString) * count)">
             <Parameter Name="count" Type="int"/>
         </Intrinsic>
+        <Intrinsic Name="port" Expression="*(int*)(((char*)(d)) + sizeof(QAtomicInt))" />
         <Intrinsic Name="scheme" Expression="*((QString*)(((char*)(d) + memberOffset(0))))" />
         <Intrinsic Name="username" Expression="*((QString*)(((char*)(d) + memberOffset(1))))" />
         <Intrinsic Name="password" Expression="*((QString*)(((char*)(d) + memberOffset(2))))" />
@@ -408,68 +409,100 @@ SPDX-License-Identifier: MIT
         <Intrinsic Name="query" Expression="*((QString*)(((char*)(d) + memberOffset(5))))" />
         <Intrinsic Name="fragment" Expression="*((QString*)(((char*)(d) + memberOffset(6))))" />
 
-        <!-- Full URL with everything -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; !isEmpty(host().d.size)
-                           &amp;&amp; !isEmpty(path().d.size)
-                           &amp;&amp; !isEmpty(query().d.size)
-                           &amp;&amp; !isEmpty(fragment().d.size)">
+        <Intrinsic Name="hasScheme" Expression="!isEmpty(scheme().d.size)" />
+        <Intrinsic Name="hasUser" Expression="!isEmpty(username().d.size)" />
+        <Intrinsic Name="hasHost" Expression="!isEmpty(host().d.size)" />
+        <Intrinsic Name="hasPort" Expression="port() != -1" />
+        <Intrinsic Name="hasPath" Expression="!isEmpty(path().d.size)" />
+        <Intrinsic Name="hasQuery" Expression="!isEmpty(query().d.size)" />
+        <Intrinsic Name="hasFragment" Expression="!isEmpty(fragment().d.size)" />
+
+        <!-- user:pass@host:port -->
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasQuery() &amp;&amp; hasFragment()">
+            {scheme()}://{username()}:{password()}@{host()}:{port()}{path()}?{query()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasQuery()">
+            {scheme()}://{username()}:{password()}@{host()}:{port()}{path()}?{query()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasFragment()">
+            {scheme()}://{username()}:{password()}@{host()}:{port()}{path()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath()">
+            {scheme()}://{username()}:{password()}@{host()}:{port()}{path()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPort()">
+            {scheme()}://{username()}:{password()}@{host()}:{port()}
+        </DisplayString>
+
+        <!-- user:pass@host -->
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasQuery() &amp;&amp; hasFragment()">
+            {scheme()}://{username()}:{password()}@{host()}{path()}?{query()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasQuery()">
+            {scheme()}://{username()}:{password()}@{host()}{path()}?{query()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasFragment()">
+            {scheme()}://{username()}:{password()}@{host()}{path()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost() &amp;&amp; hasPath()">
+            {scheme()}://{username()}:{password()}@{host()}{path()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasUser() &amp;&amp; hasHost()">
+            {scheme()}://{username()}:{password()}@{host()}
+        </DisplayString>
+
+        <!-- host:port -->
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasQuery() &amp;&amp; hasFragment()">
+            {scheme()}://{host()}:{port()}{path()}?{query()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasQuery()">
+            {scheme()}://{host()}:{port()}{path()}?{query()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath() &amp;&amp; hasFragment()">
+            {scheme()}://{host()}:{port()}{path()}#{fragment()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPort() &amp;&amp; hasPath()">
+            {scheme()}://{host()}:{port()}{path()}
+        </DisplayString>
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPort()">
+            {scheme()}://{host()}:{port()}
+        </DisplayString>
+
+        <!-- host -->
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasQuery() &amp;&amp; hasFragment()">
             {scheme()}://{host()}{path()}?{query()}#{fragment()}
         </DisplayString>
-
-        <!-- With query -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; !isEmpty(host().d.size)
-                           &amp;&amp; !isEmpty(path().d.size)
-                           &amp;&amp; !isEmpty(query().d.size)">
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasQuery()">
             {scheme()}://{host()}{path()}?{query()}
         </DisplayString>
-
-        <!-- With fragment -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; !isEmpty(host().d.size)
-                           &amp;&amp; !isEmpty(path().d.size)
-                           &amp;&amp; !isEmpty(fragment().d.size)">
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPath() &amp;&amp; hasFragment()">
             {scheme()}://{host()}{path()}#{fragment()}
         </DisplayString>
-
-        <!-- Host + path -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; !isEmpty(host().d.size)
-                           &amp;&amp; !isEmpty(path().d.size)">
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost() &amp;&amp; hasPath()">
             {scheme()}://{host()}{path()}
         </DisplayString>
-
-        <!-- Scheme + path, for example QUrl::fromLocalFile -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; isEmpty(host().d.size)
-                           &amp;&amp; !isEmpty(path().d.size)">
-            {scheme()}://{path()}
-        </DisplayString>
-
-        <!-- Host only -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)
-                           &amp;&amp; !isEmpty(host().d.size)">
+        <DisplayString Condition="hasScheme() &amp;&amp; hasHost()">
             {scheme()}://{host()}
         </DisplayString>
 
-        <!-- Scheme only -->
-        <DisplayString Condition="!isEmpty(scheme().d.size)">
-            {scheme()}
+        <!-- Scheme + path, e.g. QUrl::fromLocalFile -->
+        <DisplayString Condition="hasScheme() &amp;&amp; !hasHost() &amp;&amp; hasPath()">
+            {scheme()}://{path()}
         </DisplayString>
 
-        <DisplayString Condition="d == 0">
-            [default-constructed QUrl]
-        </DisplayString>
+        <DisplayString Condition="hasScheme()">{scheme()}</DisplayString>
+
+        <DisplayString Condition="d == 0">[default-constructed QUrl]</DisplayString>
 
         <Expand>
-            <Item Name="[scheme]">scheme()</Item>
-            <Item Name="[username]">username()</Item>
-            <Item Name="[password]">password()</Item>
-            <Item Name="[host]">host()</Item>
-            <Item Name="[path]">path()</Item>
-            <Item Name="[query]">query()</Item>
-            <Item Name="[fragment]">fragment()</Item>
+            <Item Name="[scheme]" Condition="hasScheme()">scheme()</Item>
+            <Item Name="[username]" Condition="hasUser()">username()</Item>
+            <Item Name="[password]" Condition="hasUser()">password()</Item>
+            <Item Name="[host]" Condition="hasHost()">host()</Item>
+            <Item Name="[port]" Condition="hasPort()">port()</Item>
+            <Item Name="[path]" Condition="hasPath()">path()</Item>
+            <Item Name="[query]" Condition="hasQuery()">query()</Item>
+            <Item Name="[fragment]" Condition="hasFragment()">fragment()</Item>
         </Expand>
     </Type>
 

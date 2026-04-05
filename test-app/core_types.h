@@ -63,5 +63,7 @@ public:
     QStringView qStringView = QStringView(qString);
     QTime qTime = QTime::currentTime();
     QUrl qUrl = QUrl("https://github.com/narnaud/natvis4qt");
+    QUrl qUrl2 = QUrl("https://www.qt.io:1234");
+    QUrl qUrl3 = QUrl("https://username:password@www.qt.io:1234/path/to/file?query=string#fragment");
     QUuid qUuid = QUuid::createUuid();
 };
