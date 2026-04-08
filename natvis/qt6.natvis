@@ -863,10 +863,10 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="typeId() == QMetaType::QEasingCurve">EasingCurve</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QUuid">{*(QUuid*) dataStar()}</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QRegularExpression">RegularExpression</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonValue">QJsonValue</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonObject">QJsonObject</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonArray">QJsonArray</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonDocument">QJsonDocument</DisplayString>
+        <DisplayString Condition="typeId() == QMetaType::QJsonValue">{*(QJsonValue*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == QMetaType::QJsonObject">{*(QJsonObject*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == QMetaType::QJsonArray">{*(QJsonArray*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == QMetaType::QJsonDocument">{*(QJsonDocument*) dataStar()}</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QCborValue">QCborValue</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QCborArray">QCborArray</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QCborMap">QCborMap</DisplayString>
@@ -932,6 +932,11 @@ SPDX-License-Identifier: MIT
             <ExpandedItem Condition="typeId() == QMetaType::QVector4D">*(QVector4D*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QQuaternion">*(QQuaternion*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QPolygonF">*(QPolygonF*) dataStar()</ExpandedItem>
+
+            <ExpandedItem Condition="typeId() == QMetaType::QJsonValue">*(QJsonValue*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == QMetaType::QJsonObject">*(QJsonObject*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == QMetaType::QJsonArray">*(QJsonArray*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == QMetaType::QJsonDocument">*(QJsonDocument*) dataStar()</ExpandedItem>
 
             <ExpandedItem Condition="typeId() == QMetaType::QVariantMap">*(QMap&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QVariantList">*(QList&lt;QVariant&gt;*) dataStar()</ExpandedItem>

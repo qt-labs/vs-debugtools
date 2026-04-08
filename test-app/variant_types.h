@@ -104,10 +104,10 @@ public:
     QVariant v_qVector4D = QVector4D(42., 42., 42., 42.);
     QVariant v_qQuaternion = QQuaternion(42., 42., 42., 42.);
     QVariant v_qEasingCurve = QEasingCurve(QEasingCurve::Linear);
-    // QVariant v_qJsonValue = QJsonValue();
-    // QVariant v_qJsonObject = QJsonObject();
-    // QVariant v_qJsonArray = QJsonArray();
-    // QVariant v_qJsonDocument = QJsonDocument();
+    QVariant v_qJsonValue = QJsonValue("hello");
+    QVariant v_qJsonObject = QJsonObject({{"key", "value"}});
+    QVariant v_qJsonArray = QJsonArray({"one", "two", "three"});
+    QVariant v_qJsonDocument = QJsonDocument(QJsonObject({{"key", "value"}}));
     // QVariant v_qCborValue = QCborValue();
     // QVariant v_qCborArray = QCborArray();
     // QVariant v_qCborMap = QCborMap();

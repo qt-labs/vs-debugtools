@@ -52,6 +52,10 @@ public:
     QFileInfo qFileInfo = QFileInfo(QCoreApplication::applicationFilePath());
     SelectionFlags qFlags = SelectionFlag::SelectCurrent;
     QJsonDocument qJsonDocument;
+    QJsonArray qJsonArray = QJsonArray({ "one", "two", "three" });
+    QJsonValue qJsonValueString = QJsonValue("hello");
+    QJsonObject qJsonObject = QJsonObject({ {"key", "value"} });
+    QJsonValue qJsonValueNull = QJsonValue(QJsonValue::Null);
     QLine qLine = QLine(0, 0, 42, 42);
     QPoint qPoint = QPoint(24, 48);
     QPointF qPointF = QPointF(24.5, 48.5);
