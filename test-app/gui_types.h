@@ -10,6 +10,14 @@ class GuiTypes : public QObject
 public:
     using QObject::QObject;
 
+    QColor qColorRgb = QColor(255, 0, 128);
+    QColor qColorRgba = QColor(255, 0, 128, 100);
+    QColor qColorHsv = QColor::fromHsv(210, 200, 180);
+    QColor qColorCmyk = QColor::fromCmyk(100, 200, 50, 25);
+    QColor qColorHsl = QColor::fromHsl(120, 200, 150);
+    QColor qColorInvalid = QColor();
+    QColor qColorNamed = QColor("steelblue");
+
     QBitmap qBitmap = QBitmap(":/qt.png");
     QBrush qBrush = QBrush();
     QCursor qCursor = QCursor();

@@ -877,7 +877,7 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="typeId() == QMetaType::QFont">QFont</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QPixmap">{*(QPixmap*) dataStar()}</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QBrush">QBrush</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QColor">QColor</DisplayString>
+        <DisplayString Condition="typeId() == QMetaType::QColor">{*(QColor*) dataStar()}</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QPalette">QPalette</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QIcon">QIcon</DisplayString>
         <DisplayString Condition="typeId() == QMetaType::QImage">{*(QImage*) dataStar()}</DisplayString>
@@ -921,6 +921,7 @@ SPDX-License-Identifier: MIT
             <ExpandedItem Condition="typeId() == QMetaType::QPointF">*(QPointF*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QUuid">*(QUuid*) dataStar()</ExpandedItem>
 
+            <ExpandedItem Condition="typeId() == QMetaType::QColor">*(QColor*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QPixmap">*(QPixmap*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QImage">*(QImage*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == QMetaType::QPolygon">*(QPolygon*) dataStar()</ExpandedItem>
@@ -979,6 +980,71 @@ SPDX-License-Identifier: MIT
         <Expand>
             <Item Name="scopeId">*((QString*)((*(char**)&amp;d)+8))</Item>
             <Item Name="protocol">(QAbstractSocket::NetworkLayerProtocol)protocol()</Item>
+        </Expand>
+    </Type>
+
+    <Type Name="QColor">
+        <!-- Spec enum: Invalid=0, Rgb=1, Hsv=2, Cmyk=3, Hsl=4, ExtendedRgb=5 -->
+        <!-- All non-hue ushort values are stored as value * 0x0101; >> 8 gives 0-255 -->
+        <!-- Hue values are stored as value * 100; / 100 gives 0-359 -->
+        <Intrinsic Name="isOpaque" Expression="ct.array[0] == 0xFFFF" />
+
+        <DisplayString Condition="cspec == 0">Invalid</DisplayString>
+
+        <DisplayString Condition="cspec == 1 &amp;&amp; isOpaque()">
+            rgb({ct.argb.red >> 8}, {ct.argb.green >> 8}, {ct.argb.blue >> 8})
+        </DisplayString>
+        <DisplayString Condition="cspec == 1">
+            rgba({ct.argb.red >> 8}, {ct.argb.green >> 8}, {ct.argb.blue >> 8}, {ct.argb.alpha >> 8})
+        </DisplayString>
+
+        <DisplayString Condition="cspec == 2 &amp;&amp; isOpaque()">
+            hsv({ct.ahsv.hue / 100}, {ct.ahsv.saturation >> 8}, {ct.ahsv.value >> 8})
+        </DisplayString>
+        <DisplayString Condition="cspec == 2">
+            hsva({ct.ahsv.hue / 100}, {ct.ahsv.saturation >> 8}, {ct.ahsv.value >> 8}, {ct.ahsv.alpha >> 8})
+        </DisplayString>
+
+        <DisplayString Condition="cspec == 3 &amp;&amp; isOpaque()">
+            cmyk({ct.acmyk.cyan >> 8}, {ct.acmyk.magenta >> 8}, {ct.acmyk.yellow >> 8}, {ct.acmyk.black >> 8})
+        </DisplayString>
+        <DisplayString Condition="cspec == 3">
+            cmyka({ct.acmyk.cyan >> 8}, {ct.acmyk.magenta >> 8}, {ct.acmyk.yellow >> 8}, {ct.acmyk.black >> 8}, {ct.acmyk.alpha >> 8})
+        </DisplayString>
+
+        <DisplayString Condition="cspec == 4 &amp;&amp; isOpaque()">
+            hsl({ct.ahsl.hue / 100}, {ct.ahsl.saturation >> 8}, {ct.ahsl.lightness >> 8})
+        </DisplayString>
+        <DisplayString Condition="cspec == 4">
+            hsla({ct.ahsl.hue / 100}, {ct.ahsl.saturation >> 8}, {ct.ahsl.lightness >> 8}, {ct.ahsl.alpha >> 8})
+        </DisplayString>
+
+        <DisplayString Condition="cspec == 5">ExtendedRgb</DisplayString>
+
+        <Expand>
+            <Item Name="[alpha]" Condition="cspec != 0">ct.array[0] >> 8</Item>
+            <!-- RGB -->
+            <Item Name="[red]" Condition="cspec == 1">ct.argb.red >> 8</Item>
+            <Item Name="[green]" Condition="cspec == 1">ct.argb.green >> 8</Item>
+            <Item Name="[blue]" Condition="cspec == 1">ct.argb.blue >> 8</Item>
+            <!-- HSV -->
+            <Item Name="[hue]" Condition="cspec == 2">ct.ahsv.hue</Item>
+            <Item Name="[saturation]" Condition="cspec == 2">ct.ahsv.saturation >> 8</Item>
+            <Item Name="[value]" Condition="cspec == 2">ct.ahsv.value >> 8</Item>
+            <!-- CMYK -->
+            <Item Name="[cyan]" Condition="cspec == 3">ct.acmyk.cyan >> 8</Item>
+            <Item Name="[magenta]" Condition="cspec == 3">ct.acmyk.magenta >> 8</Item>
+            <Item Name="[yellow]" Condition="cspec == 3">ct.acmyk.yellow >> 8</Item>
+            <Item Name="[black]" Condition="cspec == 3">ct.acmyk.black >> 8</Item>
+            <!-- HSL -->
+            <Item Name="[hue]" Condition="cspec == 4">ct.ahsl.hue</Item>
+            <Item Name="[saturation]" Condition="cspec == 4">ct.ahsl.saturation >> 8</Item>
+            <Item Name="[lightness]" Condition="cspec == 4">ct.ahsl.lightness >> 8</Item>
+            <!-- ExtendedRgb (raw half-float values) -->
+            <Item Name="[alphaF16]" Condition="cspec == 5">ct.argbExtended.alphaF16</Item>
+            <Item Name="[redF16]" Condition="cspec == 5">ct.argbExtended.redF16</Item>
+            <Item Name="[greenF16]" Condition="cspec == 5">ct.argbExtended.greenF16</Item>
+            <Item Name="[blueF16]" Condition="cspec == 5">ct.argbExtended.blueF16</Item>
         </Expand>
     </Type>
 
