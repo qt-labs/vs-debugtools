@@ -115,18 +115,15 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <!-- Qt 6.10+ wraps QPoint integer members in QPoint::Representation {m_i}.
-         This rule makes the wrapper transparent so {xp} renders as a plain integer
-         on both Qt 6.9 (where xp is int) and Qt 6.10+ (where xp is Representation). -->
-    <Type Name="QPoint::Representation">
-        <DisplayString>{m_i}</DisplayString>
-    </Type>
-
+    <!-- Reinterpret each member as int* to extract a plain integer.
+         Works on Qt 6.9 (plain int members, cast is a no-op) and Qt 6.10+
+         (members are QPoint::Representation with a single int m_i at offset 0).
+         Bypasses the wrapper type so all debugger backends show a scalar integer. -->
     <Type Name="QPoint">
-        <DisplayString>{{ x = {xp}, y = {yp} }}</DisplayString>
+        <DisplayString>{{ x = {*((int*)(&amp;xp))}, y = {*((int*)(&amp;yp))} }}</DisplayString>
         <Expand>
-            <Item Name="[x]">xp</Item>
-            <Item Name="[y]">yp</Item>
+            <Item Name="[x]">*((int*)(&amp;xp))</Item>
+            <Item Name="[y]">*((int*)(&amp;yp))</Item>
         </Expand>
     </Type>
 
@@ -142,13 +139,13 @@ SPDX-License-Identifier: MIT
 
     <!-- Reinterpret each corner as int* to extract a plain integer for arithmetic.
          Works on Qt 6.9 (plain int members, cast is a no-op) and Qt 6.10+
-         (members are a wrapper type with a single int m_i at offset 0).
-         Tested on LLDB (macOS) with both Qt versions. -->
+         (members are QRect::Representation / QCheckedInt with a single int m_i at offset 0).
+         Bypasses the wrapper type so all debugger backends show scalar integers. -->
     <Type Name="QRect">
-        <DisplayString>{{ x = {x1}, y = {y1}, width = {*((int*)(&amp;x2)) - *((int*)(&amp;x1)) + 1}, height = {*((int*)(&amp;y2)) - *((int*)(&amp;y1)) + 1} }}</DisplayString>
+        <DisplayString>{{ x = {*((int*)(&amp;x1))}, y = {*((int*)(&amp;y1))}, width = {*((int*)(&amp;x2)) - *((int*)(&amp;x1)) + 1}, height = {*((int*)(&amp;y2)) - *((int*)(&amp;y1)) + 1} }}</DisplayString>
         <Expand>
-            <Item Name="[x]">x1</Item>
-            <Item Name="[y]">y1</Item>
+            <Item Name="[x]">*((int*)(&amp;x1))</Item>
+            <Item Name="[y]">*((int*)(&amp;y1))</Item>
             <Item Name="[width]">*((int*)(&amp;x2)) - *((int*)(&amp;x1)) + 1</Item>
             <Item Name="[height]">*((int*)(&amp;y2)) - *((int*)(&amp;y1)) + 1</Item>
         </Expand>
@@ -162,18 +159,15 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-    <!-- Qt 6.10+ wraps QSize integer members in QSize::Representation {m_i}.
-         This rule makes the wrapper transparent so {wd} renders as a plain integer
-         on both Qt 6.9 (where wd is int) and Qt 6.10+ (where wd is Representation). -->
-    <Type Name="QSize::Representation">
-        <DisplayString>{m_i}</DisplayString>
-    </Type>
-
+    <!-- Reinterpret each member as int* to extract a plain integer.
+         Works on Qt 6.9 (plain int members, cast is a no-op) and Qt 6.10+
+         (members are QSize::Representation with a single int m_i at offset 0).
+         Bypasses the wrapper type so all debugger backends show a scalar integer. -->
     <Type Name="QSize">
-        <DisplayString>{{ width = {wd}, height = {ht} }}</DisplayString>
+        <DisplayString>{{ width = {*((int*)(&amp;wd))}, height = {*((int*)(&amp;ht))} }}</DisplayString>
         <Expand>
-            <Item Name="[width]">wd</Item>
-            <Item Name="[height]">ht</Item>
+            <Item Name="[width]">*((int*)(&amp;wd))</Item>
+            <Item Name="[height]">*((int*)(&amp;ht))</Item>
         </Expand>
     </Type>
 
