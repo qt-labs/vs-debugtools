@@ -88,23 +88,20 @@ SPDX-License-Identifier: MIT
     </Type>
 
    <Type Name="QBasicAtomicPointer&lt;*&gt;">
-        <Intrinsic Name="isNull" Expression="value()==0" />
-        <Intrinsic Name="value" Expression="_q_value.value()" />
+        <Intrinsic Name="isNull" Expression="*($T1**)&amp;_q_value==0" />
+        <Intrinsic Name="value" Expression="*($T1**)&amp;_q_value" />
         <DisplayString Condition="isNull()">empty</DisplayString>
-        <DisplayString Condition="!isNull()">{_q_value}</DisplayString>
+        <DisplayString Condition="!isNull()">{*($T1**)&amp;_q_value}</DisplayString>
         <Expand>
-            <ExpandedItem Condition="!isNull()">*value()</ExpandedItem>
+            <Item Name="[value]" Condition="!isNull()">*value()</Item>
         </Expand>
     </Type>
 
     <Type Name="QBasicAtomicPointer&lt;void&gt;">
-        <Intrinsic Name="isNull" Expression="value()==0" />
-        <Intrinsic Name="value" Expression="_q_value.value()" />
+        <Intrinsic Name="isNull" Expression="*(void**)&amp;_q_value==0" />
+        <Intrinsic Name="value" Expression="*(void**)&amp;_q_value" />
         <DisplayString Condition="isNull()">empty</DisplayString>
-        <DisplayString Condition="!isNull()">{_q_value}</DisplayString>
-        <Expand>
-            <ExpandedItem Condition="!isNull()">value()</ExpandedItem>
-        </Expand>
+        <DisplayString Condition="!isNull()">{*(void**)&amp;_q_value}</DisplayString>
     </Type>
 
     <Type Name="QPointF">
