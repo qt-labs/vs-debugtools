@@ -787,139 +787,157 @@ SPDX-License-Identifier: MIT
         <Intrinsic Name="dataStar" Expression="(d.is_shared ? reinterpret_cast&lt;const void *&gt;((size_t)(d.data.shared) + d.data.shared-&gt;offset) : (&amp;(d.data.data)))">
         </Intrinsic>
 
+        <!-- QMetaType IDs used in conditions below (from Qt's qmetatype.h):
+             Bool=1  Int=2  UInt=3  LongLong=4  ULongLong=5  Double=6
+             QChar=7  QVariantMap=8  QVariantList=9  QString=10  QStringList=11  QByteArray=12
+             QDate=14  QTime=15  QDateTime=16  QUrl=17  QLocale=18
+             QRect=19  QRectF=20  QSize=21  QSizeF=22  QLine=23  QLineF=24
+             QPoint=25  QPointF=26  QVariantHash=28  QEasingCurve=29  QUuid=30
+             VoidStar=31  Long=32  Short=33  Char=34  ULong=35  UShort=36  UChar=37
+             Float=38  QObjectStar=39  SChar=40  QModelIndex=42  QRegularExpression=44
+             QJsonValue=45  QJsonObject=46  QJsonArray=47  QJsonDocument=48
+             QByteArrayList=49  QPersistentModelIndex=50  Nullptr=51
+             QCborValue=53  QCborArray=54  QCborMap=55  Char16=56  Char32=57  QVariantPair=58
+             QFont=4096  QPixmap=4097  QBrush=4098  QColor=4099  QPalette=4100  QIcon=4101
+             QImage=4102  QPolygon=4103  QRegion=4104  QBitmap=4105  QCursor=4106
+             QKeySequence=4107  QPen=4108  QTextLength=4109  QTextFormat=4110
+             QTransform=4112  QMatrix4x4=4113  QVector2D=4114  QVector3D=4115
+             QVector4D=4116  QQuaternion=4117  QPolygonF=4118  QColorSpace=4119
+             QSizePolicy=8192 -->
+
         <DisplayString Condition="d.is_null">(null)</DisplayString>
 
         <!-- Static core pointers -->
-        <DisplayString Condition="typeId() == QMetaType::QObjectStar">QObject*</DisplayString>
+        <DisplayString Condition="typeId() == 39">QObject*</DisplayString>
 
         <!-- Static core template classes -->
-        <DisplayString Condition="typeId() == QMetaType::QVariantMap">{*(QMap&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantList">{*(QList&lt;QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantHash">{*(QHash&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVariantPair">QVariantPair</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QByteArrayList">{*(QList&lt;QByteArray&gt;*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QStringList">{*(QList&lt;QString&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 8">{*(QMap&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 9">{*(QList&lt;QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 28">{*(QHash&lt;QString,QVariant&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 58">QVariantPair</DisplayString>
+        <DisplayString Condition="typeId() == 49">{*(QList&lt;QByteArray&gt;*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 11">{*(QList&lt;QString&gt;*) dataStar()}</DisplayString>
 
        <!-- Static primitives-->
-        <DisplayString Condition="typeId() == QMetaType::Bool">{*(bool*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Int">{*(int*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UInt">{*(unsigned int*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::LongLong">{*(long long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::ULongLong">{*(unsigned long long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Double">{*(double*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::VoidStar">{*(void**) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Long">{*(long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Short">{*(short*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char">{*(char*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char16">{*(char16_t*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Char32">{*(char32_t*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::ULong">{*(unsigned long*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UShort">{*(unsigned short*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::UChar">{*(unsigned char*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::Float">{*(float*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::SChar">{*(signed char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 1">{*(bool*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 2">{*(int*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 3">{*(unsigned int*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4">{*(long long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 5">{*(unsigned long long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 6">{*(double*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 31">{*(void**) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 32">{*(long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 33">{*(short*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 34">{*(char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 56">{*(char16_t*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 57">{*(char32_t*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 35">{*(unsigned long*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 36">{*(unsigned short*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 37">{*(unsigned char*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 38">{*(float*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 40">{*(signed char*) dataStar()}</DisplayString>
 
         <!-- Static core classes -->
-        <DisplayString Condition="typeId() == QMetaType::QChar">{*(QChar*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QString">{*(QString*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QByteArray">{*(QByteArray*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QDate">{*(QDate*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTime">{*(QTime*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QDateTime">{*(QDateTime*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QUrl">{*(QUrl*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLocale">QLocale</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRect">{*(QRect*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRectF">{*(QRectF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QSize">{*(QSize*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QSizeF">{*(QSizeF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLine">{*(QLine*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QLineF">{*(QLineF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPoint">{*(QPoint*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPointF">{*(QPointF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QEasingCurve">EasingCurve</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QUuid">{*(QUuid*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRegularExpression">RegularExpression</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonValue">{*(QJsonValue*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonObject">{*(QJsonObject*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonArray">{*(QJsonArray*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QJsonDocument">{*(QJsonDocument*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborValue">QCborValue</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborArray">QCborArray</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCborMap">QCborMap</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QModelIndex">QModelIndex</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPersistentModelIndex">QPersistentModelIndex</DisplayString>
+        <DisplayString Condition="typeId() == 7">{*(QChar*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 10">{*(QString*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 12">{*(QByteArray*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 14">{*(QDate*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 15">{*(QTime*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 16">{*(QDateTime*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 17">{*(QUrl*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 18">QLocale</DisplayString>
+        <DisplayString Condition="typeId() == 19">{*(QRect*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 20">{*(QRectF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 21">{*(QSize*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 22">{*(QSizeF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 23">{*(QLine*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 24">{*(QLineF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 25">{*(QPoint*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 26">{*(QPointF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 29">EasingCurve</DisplayString>
+        <DisplayString Condition="typeId() == 30">{*(QUuid*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 44">RegularExpression</DisplayString>
+        <DisplayString Condition="typeId() == 45">{*(QJsonValue*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 46">{*(QJsonObject*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 47">{*(QJsonArray*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 48">{*(QJsonDocument*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 53">QCborValue</DisplayString>
+        <DisplayString Condition="typeId() == 54">QCborArray</DisplayString>
+        <DisplayString Condition="typeId() == 55">QCborMap</DisplayString>
+        <DisplayString Condition="typeId() == 42">QModelIndex</DisplayString>
+        <DisplayString Condition="typeId() == 50">QPersistentModelIndex</DisplayString>
 
          <!-- Static gui classes -->
-        <DisplayString Condition="typeId() == QMetaType::QFont">QFont</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPixmap">{*(QPixmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QBrush">QBrush</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QColor">{*(QColor*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPalette">QPalette</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QIcon">QIcon</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QImage">{*(QImage*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPolygon">{*(QPolygon*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QRegion">QRegion</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QBitmap">{*(QBitmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QCursor">QCursor</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QKeySequence">QKeySequence</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPen">QPen</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTextLength">QTextLength</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTextFormat">QTextFormat</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QTransform">{*(QTransform*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QMatrix4x4">{*(QMatrix4x4*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector2D">{*(QVector2D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector3D">{*(QVector3D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QVector4D">{*(QVector4D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QQuaternion">{*(QQuaternion*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QPolygonF">{*(QPolygonF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == QMetaType::QColorSpace">QColorSpace</DisplayString>
+        <DisplayString Condition="typeId() == 4096">QFont</DisplayString>
+        <DisplayString Condition="typeId() == 4097">{*(QPixmap*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4098">QBrush</DisplayString>
+        <DisplayString Condition="typeId() == 4099">{*(QColor*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4100">QPalette</DisplayString>
+        <DisplayString Condition="typeId() == 4101">QIcon</DisplayString>
+        <DisplayString Condition="typeId() == 4102">{*(QImage*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4103">{*(QPolygon*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4104">QRegion</DisplayString>
+        <DisplayString Condition="typeId() == 4105">{*(QBitmap*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4106">QCursor</DisplayString>
+        <DisplayString Condition="typeId() == 4107">QKeySequence</DisplayString>
+        <DisplayString Condition="typeId() == 4108">QPen</DisplayString>
+        <DisplayString Condition="typeId() == 4109">QTextLength</DisplayString>
+        <DisplayString Condition="typeId() == 4110">QTextFormat</DisplayString>
+        <DisplayString Condition="typeId() == 4112">{*(QTransform*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4113">{*(QMatrix4x4*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4114">{*(QVector2D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4115">{*(QVector3D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4116">{*(QVector4D*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4117">{*(QQuaternion*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4118">{*(QPolygonF*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 4119">QColorSpace</DisplayString>
 
         <!-- Static widget classes -->
-        <DisplayString Condition="typeId() == QMetaType::QSizePolicy">{*(QSizePolicy*) dataStar()}</DisplayString>
+        <DisplayString Condition="typeId() == 8192">{*(QSizePolicy*) dataStar()}</DisplayString>
 
         <!-- Unhandled : display the typeId-->
-        <DisplayString>QMetaType::Type ({typeId()})</DisplayString>
+        <DisplayString>({typeId()})</DisplayString>
 
         <Expand>
-            <ExpandedItem Condition="typeId() == QMetaType::QString">*(QString*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QByteArray">*(QByteArray*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QDate">*(QDate*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QTime">*(QTime*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QDateTime">*(QDateTime*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QUrl">*(QUrl*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QRect">*(QRect*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QRectF">*(QRectF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QSize">*(QSize*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QSizeF">*(QSizeF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QLine">*(QLine*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QLineF">*(QLineF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPoint">*(QPoint*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPointF">*(QPointF*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QUuid">*(QUuid*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 10">*(QString*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 12">*(QByteArray*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 14">*(QDate*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 15">*(QTime*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 16">*(QDateTime*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 17">*(QUrl*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 19">*(QRect*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 20">*(QRectF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 21">*(QSize*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 22">*(QSizeF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 23">*(QLine*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 24">*(QLineF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 25">*(QPoint*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 26">*(QPointF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 30">*(QUuid*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == QMetaType::QColor">*(QColor*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPixmap">*(QPixmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QImage">*(QImage*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPolygon">*(QPolygon*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QBitmap">*(QBitmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QTransform">*(QTransform*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QMatrix4x4">*(QMatrix4x4*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector2D">*(QVector2D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector3D">*(QVector3D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVector4D">*(QVector4D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QQuaternion">*(QQuaternion*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QPolygonF">*(QPolygonF*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4099">*(QColor*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4097">*(QPixmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4102">*(QImage*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4103">*(QPolygon*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4105">*(QBitmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4112">*(QTransform*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4113">*(QMatrix4x4*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4114">*(QVector2D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4115">*(QVector3D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4116">*(QVector4D*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4117">*(QQuaternion*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 4118">*(QPolygonF*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == QMetaType::QJsonValue">*(QJsonValue*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QJsonObject">*(QJsonObject*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QJsonArray">*(QJsonArray*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QJsonDocument">*(QJsonDocument*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 45">*(QJsonValue*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 46">*(QJsonObject*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 47">*(QJsonArray*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 48">*(QJsonDocument*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantMap">*(QMap&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantList">*(QList&lt;QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QVariantHash">*(QHash&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QByteArrayList">*(QList&lt;QByteArray&gt;*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == QMetaType::QStringList">*(QList&lt;QString&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 8">*(QMap&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 9">*(QList&lt;QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 28">*(QHash&lt;QString,QVariant&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 49">*(QList&lt;QByteArray&gt;*) dataStar()</ExpandedItem>
+            <ExpandedItem Condition="typeId() == 11">*(QList&lt;QString&gt;*) dataStar()</ExpandedItem>
         </Expand>
    </Type>
 
