@@ -1017,20 +1017,35 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QImage">
+        <Intrinsic Name="p" Optional="true" Expression="(Qt6Gui.dll!QImageData*)d" />
         <Intrinsic Name="p" Optional="true" Expression="(qwindowsd.dll!QImageData*)d" />
         <Intrinsic Name="p" Optional="true" Expression="(Qt6Guid.dll!QImageData*)d" />
-        <Intrinsic Name="p" Optional="true" Expression="(Qt6Gui.dll!QImageData*)d" />
-        <DisplayString Condition="d" Optional="true">{{ {p()-&gt;width}x{p()-&gt;height} }}</DisplayString>
+        <!-- DisplayString: d-> first for GDB/LLDB (direct field access, no cast needed).
+             On vsdbg d-> fails silently (Optional="true") and falls through to the p() variant.
+             On GDB/LLDB, p() errors: MIEngine strips the dll! prefix but the resulting C-style
+             cast still fails — LLDB JIT cannot compile casts for Qt private types not fully
+             defined in its context; GDB also rejects them as cast targets. -->
+        <DisplayString Condition="d != 0" Optional="true">{{ {d-&gt;width}x{d-&gt;height} }}</DisplayString>
+        <DisplayString Condition="d != 0" Optional="true">{{ {p()-&gt;width}x{p()-&gt;height} }}</DisplayString>
         <DisplayString>empty</DisplayString>
+        <!-- Expand: p()-based items for vsdbg (p() loads Qt6Gui.dll type info via the
+             DLL-qualified cast, making QImageData fields accessible). d->-based items
+             for GDB/LLDB (d is typed as QImageData* in DWARF so d->field works without
+             any cast; on vsdbg, QImageData is unknown outside the DLL-cast context so
+             d-> items fail silently via Optional). No duplicates: QPixmap accesses image
+             fields directly via pd()->image.d->field and does not trigger QImage's natvis. -->
         <Expand>
-            <Item Optional="true" Name="[width]">p()-&gt;width</Item>
-            <Item Optional="true" Name="[height]">p()-&gt;height</Item>
-            <Item Optional="true" Name="[data]">p()-&gt;data,[p()-&gt;bytes_per_line * p()-&gt;height]</Item>
-            <Item Optional="true" Name="[stride]">p()-&gt;bytes_per_line</Item>
-            <Synthetic Name="[type]">
-                <DisplayString>UINT8</DisplayString>
-            </Synthetic>
-            <Item Optional="true" Name="[channels]">p()-&gt;bytes_per_line / p()-&gt;width</Item>
+            <Item Optional="true" Name="[width]"    Condition="p() != 0">p()-&gt;width</Item>
+            <Item Optional="true" Name="[height]"   Condition="p() != 0">p()-&gt;height</Item>
+            <Item Optional="true" Name="[data]"     Condition="p() != 0">p()-&gt;data,[p()-&gt;bytes_per_line * p()-&gt;height]</Item>
+            <Item Optional="true" Name="[stride]"   Condition="p() != 0">p()-&gt;bytes_per_line</Item>
+            <Synthetic Name="[type]"><DisplayString>UINT8</DisplayString></Synthetic>
+            <Item Optional="true" Name="[channels]" Condition="p() != 0">p()-&gt;bytes_per_line / p()-&gt;width</Item>
+            <Item Optional="true" Name="[width]"    Condition="d != 0">d-&gt;width</Item>
+            <Item Optional="true" Name="[height]"   Condition="d != 0">d-&gt;height</Item>
+            <Item Optional="true" Name="[data]"     Condition="d != 0">d-&gt;data,[d-&gt;bytes_per_line * d-&gt;height]</Item>
+            <Item Optional="true" Name="[stride]"   Condition="d != 0">d-&gt;bytes_per_line</Item>
+            <Item Optional="true" Name="[channels]" Condition="d != 0">d-&gt;bytes_per_line / d-&gt;width</Item>
         </Expand>
     </Type>
     <Type Name="QImage" Priority="Low">
