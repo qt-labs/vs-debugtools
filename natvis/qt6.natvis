@@ -1053,12 +1053,35 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QPixmap">
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Guid.dll!QRasterPlatformPixmap**)&amp;data" />
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Gui.dll!QRasterPlatformPixmap**)&amp;data" />
-        <DisplayString Condition="d()" Optional="true">{{ {d()-&gt;w}x{d()-&gt;h} }}</DisplayString>
+        <!-- Intrinsic named "pd" (not "d") to avoid shadowing QImage::d when QImage's natvis
+             is evaluated inside QPixmap's expand: a QPixmap intrinsic named "d" would resolve
+             to QRasterPlatformPixmap* instead of QImage's QImageData* d member, causing
+             p() to cast the wrong pointer and producing <Unable to read memory> on vsdbg. -->
+        <Intrinsic Name="pd" Optional="true" Expression="*(Qt6Guid.dll!QRasterPlatformPixmap**)&amp;data" />
+        <Intrinsic Name="pd" Optional="true" Expression="*(Qt6Gui.dll!QRasterPlatformPixmap**)&amp;data" />
+        <!-- DisplayString: data.d->w/h accesses QPlatformPixmap base members directly.
+             GDB does not enforce C++ access control in expression evaluation, so data.d
+             (private in QExplicitlySharedDataPointer) is reachable on GDB/Linux.
+             LLDB enforces access control, so data.d fails there — pd() is the fallback
+             for vsdbg. QPixmap DisplayString remains empty on LLDB/macOS. -->
+        <DisplayString Condition="data.d != 0" Optional="true">{{ {data.d-&gt;w}x{data.d-&gt;h} }}</DisplayString>
+        <DisplayString Condition="pd()" Optional="true">{{ {pd()-&gt;w}x{pd()-&gt;h} }}</DisplayString>
         <DisplayString>empty</DisplayString>
+        <!-- Expand: all fields accessed directly through pd() to avoid triggering QImage's
+             natvis. Showing pd()->image as a QImage child would cause vsdbg to evaluate
+             QImage's natvis in this context (Qt6Gui.dll type info already loaded via pd()),
+             making both p()- and d->-based QImage items resolvable simultaneously and
+             producing duplicate expand entries for all fields on vsdbg+PDB.
+             Accessing pd()->image.d->field bypasses QImage's natvis entirely.
+             GDB/LLDB: pd() fails so all items are skipped — same root cause as DisplayString:
+             MIEngine strips the dll! prefix but the resulting C-style cast still fails on
+             both LLDB (JIT compilation) and GDB (Qt private type not in evaluator scope). -->
         <Expand>
-            <ExpandedItem>d()-&gt;image</ExpandedItem>
+            <Item Optional="true" Name="[width]"    Condition="pd() != 0">pd()-&gt;w</Item>
+            <Item Optional="true" Name="[height]"   Condition="pd() != 0">pd()-&gt;h</Item>
+            <Item Optional="true" Name="[data]"     Condition="pd() != 0">pd()-&gt;image.d-&gt;data</Item>
+            <Item Optional="true" Name="[stride]"   Condition="pd() != 0">pd()-&gt;image.d-&gt;bytes_per_line</Item>
+            <Item Optional="true" Name="[channels]" Condition="pd() != 0">pd()-&gt;image.d-&gt;bytes_per_line / pd()-&gt;image.d-&gt;width</Item>
         </Expand>
     </Type>
     <Type Name="QPixmap" Priority="Low">
