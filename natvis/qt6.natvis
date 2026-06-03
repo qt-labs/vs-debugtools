@@ -1097,30 +1097,37 @@ SPDX-License-Identifier: MIT
 
     <!-- The following types require debug symbols to be loaded. -->
     <Type Name="QDir">
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QDirPrivate**)&amp;d_ptr"></Intrinsic>
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QDirPrivate**)&amp;d_ptr"></Intrinsic>
-        <DisplayString>{d()-&gt;dirEntry.m_filePath}</DisplayString>
+        <Intrinsic Name="s" Optional="true" Expression="*(QDirPrivate**)&amp;d_ptr" />
+        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QDirPrivate**)&amp;d_ptr" />
+        <DisplayString Optional="true">{s()-&gt;dirEntry.m_filePath}</DisplayString>
+        <DisplayString Optional="true">{d()-&gt;dirEntry.m_filePath}</DisplayString>
         <Expand>
-            <ExpandedItem>d()</ExpandedItem>
+            <ExpandedItem Optional="true">s()</ExpandedItem>
+            <ExpandedItem Optional="true">d()</ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QFileInfo">
-        <Intrinsic Name="d" Optional="true"
-            Expression="*(Qt6Cored.dll!QFileInfoPrivate**)&amp;d_ptr"></Intrinsic>
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFileInfoPrivate**)&amp;d_ptr"></Intrinsic>
-        <DisplayString>{d()-&gt;fileEntry.m_filePath}</DisplayString>
+        <Intrinsic Name="s" Optional="true" Expression="*(QFileInfoPrivate**)&amp;d_ptr" />
+        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QFileInfoPrivate**)&amp;d_ptr" />
+        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFileInfoPrivate**)&amp;d_ptr" />
+        <DisplayString Optional="true">{s()-&gt;fileEntry.m_filePath}</DisplayString>
+        <DisplayString Optional="true">{d()-&gt;fileEntry.m_filePath}</DisplayString>
         <Expand>
-            <ExpandedItem>d()</ExpandedItem>
+            <ExpandedItem Optional="true">s()</ExpandedItem>
+            <ExpandedItem Optional="true">d()</ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QFile">
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QFilePrivate**)&amp;d_ptr"></Intrinsic>
-        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFilePrivate**)&amp;d_ptr"></Intrinsic>
-        <DisplayString>{d()-&gt;fileName}</DisplayString>
+        <Intrinsic Name="s" Optional="true" Expression="*(QFilePrivate**)&amp;d_ptr" />
+        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Cored.dll!QFilePrivate**)&amp;d_ptr" />
+        <Intrinsic Name="d" Optional="true" Expression="*(Qt6Core.dll!QFilePrivate**)&amp;d_ptr" />
+        <DisplayString Optional="true">{s()-&gt;fileName}</DisplayString>
+        <DisplayString Optional="true">{d()-&gt;fileName}</DisplayString>
         <Expand>
-            <ExpandedItem>d()</ExpandedItem>
+            <ExpandedItem Optional="true">s()</ExpandedItem>
+            <ExpandedItem Optional="true">d()</ExpandedItem>
         </Expand>
     </Type>
 
@@ -1567,19 +1574,24 @@ SPDX-License-Identifier: MIT
 
     <!-- Show the object name for QObject subclasses, if any -->
     <Type Name="QObject" Inheritable="true">
-        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
-        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
-        <DisplayString Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
+        <Intrinsic Name="s_object" Optional="true" Expression="*((QObjectPrivate*)d_ptr.d)" />
+        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)" />
+        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)" />
+        <DisplayString Optional="true" Condition="s_object().extraData != 0">{s_object().extraData-&gt;objectName}</DisplayString>
+        <DisplayString Optional="true" Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
     </Type>
     <!-- Show the dynamic properties, but only when opening the QObject under the real object -->
     <Type Name="QObject" Inheritable="false">
-        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
-        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)"></Intrinsic>
-        <DisplayString Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
-
+        <Intrinsic Name="s_object" Optional="true" Expression="*((QObjectPrivate*)d_ptr.d)" />
+        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Cored.dll!QObjectPrivate*)d_ptr.d)" />
+        <Intrinsic Name="d_object" Optional="true" Expression="*((Qt6Core.dll!QObjectPrivate*)d_ptr.d)" />
+        <DisplayString Optional="true" Condition="s_object().extraData != 0">{s_object().extraData-&gt;objectName}</DisplayString>
+        <DisplayString Optional="true" Condition="d_object().extraData != 0">{d_object().extraData-&gt;objectName}</DisplayString>
         <Expand>
-            <Item Condition ="d_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyNames]">d_object().extraData-&gt;propertyNames</Item>
-            <Item Condition ="d_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyValues]">d_object().extraData-&gt;propertyValues</Item>
+            <Item Optional="true" Condition="s_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyNames]">s_object().extraData-&gt;propertyNames</Item>
+            <Item Optional="true" Condition="s_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyValues]">s_object().extraData-&gt;propertyValues</Item>
+            <Item Optional="true" Condition="d_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyNames]">d_object().extraData-&gt;propertyNames</Item>
+            <Item Optional="true" Condition="d_object().extraData-&gt;propertyNames.d.size != 0" Name="[propertyValues]">d_object().extraData-&gt;propertyValues</Item>
         </Expand>
     </Type>
 
