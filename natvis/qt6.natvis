@@ -1226,34 +1226,40 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QJsonArray">
-        <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;a"></Intrinsic>
+        <Intrinsic Name="cbor" Optional="true" Expression="*(QCborContainerPrivate**)&amp;a" />
+        <Intrinsic Name="cbor_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;a" />
         <Expand>
-            <ExpandedItem>cbor(),view(arr)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor()">cbor(),view(arr)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor_d()">cbor_d(),view(arr)</ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QCborArray">
-        <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d"></Intrinsic>
+        <Intrinsic Name="cbor" Optional="true" Expression="*(QCborContainerPrivate**)&amp;d" />
+        <Intrinsic Name="cbor_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d" />
         <Expand>
-            <ExpandedItem>cbor(),view(arr)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor()">cbor(),view(arr)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor_d()">cbor_d(),view(arr)</ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QJsonObject">
-        <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o"></Intrinsic>
+        <Intrinsic Name="cbor" Optional="true" Expression="*(QCborContainerPrivate**)&amp;o" />
+        <Intrinsic Name="cbor_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o" />
         <DisplayString Condition="!cbor()">empty</DisplayString>
         <Expand>
-            <ExpandedItem
-                Condition="cbor()">cbor(),view(map)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor()">cbor(),view(map)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor_d()">cbor_d(),view(map)</ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QCborMap">
-        <Intrinsic Name="cbor" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d"></Intrinsic>
+        <Intrinsic Name="cbor" Optional="true" Expression="*(QCborContainerPrivate**)&amp;d" />
+        <Intrinsic Name="cbor_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;d" />
         <DisplayString Condition="!cbor()">empty</DisplayString>
         <Expand>
-            <ExpandedItem
-                Condition="cbor()">cbor(),view(map)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor()">cbor(),view(map)</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="cbor_d()">cbor_d(),view(map)</ExpandedItem>
         </Expand>
     </Type>
 
@@ -1265,6 +1271,11 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QCborValue">
+        <!-- container_d provides DLL type context for dynamic builds.
+             QtCbor::Element flag values are used as literals to avoid
+             enum resolution failures in dynamic builds (StringIsUtf16=4). -->
+        <Intrinsic Name="container_d" Optional="true" Expression="(Qt6Cored.dll!QCborContainerPrivate*)container" />
+
         <DisplayString Condition="t == QCborValue::Null">null</DisplayString>
         <DisplayString Condition="t == QCborValue::Invalid">invalid</DisplayString>
         <DisplayString Condition="t == QCborValue::Undefined">undefined</DisplayString>
@@ -1273,64 +1284,89 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="t == QCborValue::Integer">{n}</DisplayString>
         <DisplayString Condition="t == QCborValue::Double">{*(double*)&amp;n}</DisplayString>
 
-        <DisplayString Condition="t == QCborValue::String &amp;&amp; container-&gt;flag(n) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+        <!-- Static path first (fallback): unqualified container, works in static builds -->
+        <DisplayString Optional="true" Condition="t == QCborValue::String &amp;&amp; container-&gt;flag(n) &amp; 4">
             {container-&gt;byteDataAt(n)-&gt;u16(),[container-&gt;byteDataAt(n)-&gt;len/2]su}
         </DisplayString>
-        <DisplayString Condition="t == QCborValue::String">
+        <DisplayString Optional="true" Condition="t == QCborValue::String">
             {container-&gt;byteDataAt(n)-&gt;str(),[container-&gt;byteDataAt(n)-&gt;len]s8}
         </DisplayString>
-
-        <DisplayString Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression) &amp;&amp; container-&gt;flag(1) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+        <DisplayString Optional="true" Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression) &amp;&amp; container-&gt;flag(1) &amp; 4">
             {container-&gt;byteDataAt(1)-&gt;u16(),[container-&gt;byteDataAt(1)-&gt;len/2]su}
         </DisplayString>
-        <DisplayString Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression)">
+        <DisplayString Optional="true" Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression)">
             {container-&gt;byteDataAt(1)-&gt;str(),[container-&gt;byteDataAt(1)-&gt;len]s8}
+        </DisplayString>
+        <!-- Dynamic path: DLL-qualified container_d, used as fallback when static path fails -->
+        <DisplayString Optional="true" Condition="t == QCborValue::String &amp;&amp; container_d()-&gt;flag(n) &amp; 4">
+            {container_d()-&gt;byteDataAt(n)-&gt;u16(),[container_d()-&gt;byteDataAt(n)-&gt;len/2]su}
+        </DisplayString>
+        <DisplayString Optional="true" Condition="t == QCborValue::String">
+            {container_d()-&gt;byteDataAt(n)-&gt;str(),[container_d()-&gt;byteDataAt(n)-&gt;len]s8}
+        </DisplayString>
+        <DisplayString Optional="true" Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression) &amp;&amp; container_d()-&gt;flag(1) &amp; 4">
+            {container_d()-&gt;byteDataAt(1)-&gt;u16(),[container_d()-&gt;byteDataAt(1)-&gt;len/2]su}
+        </DisplayString>
+        <DisplayString Optional="true" Condition="(t == QCborValue::DateTime || t == QCborValue::Url || t == QCborValue::RegularExpression)">
+            {container_d()-&gt;byteDataAt(1)-&gt;str(),[container_d()-&gt;byteDataAt(1)-&gt;len]s8}
         </DisplayString>
 
         <DisplayString Condition="t == QCborValue::Array &amp;&amp; container == nullptr">[]</DisplayString>
         <DisplayString Condition="t == QCborValue::Map &amp;&amp; container == nullptr">{{}}</DisplayString>
 
         <Expand>
-            <ExpandedItem Condition="t == QCborValue::Array">container,view(arr)na</ExpandedItem>
-            <ExpandedItem Condition="t == QCborValue::Map">container,view(map)na</ExpandedItem>
-            <ExpandedItem Condition="t == QCborValue::Uuid">container,view(bytesAtOne)na</ExpandedItem>
-            <ExpandedItem Condition="t == QCborValue::ByteArray">
+            <!-- static path: unqualified container, works when type is in exe PDB (static builds) -->
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Array">container,view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Map">container,view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Uuid">container,view(bytesAtOne)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::ByteArray">
                 container-&gt;byteDataAt(n)-&gt;bytes(),[container-&gt;byteDataAt(n)-&gt;len]hv
             </ExpandedItem>
-            <ExpandedItem Condition="t == QCborValue::String &amp;&amp; container-&gt;flag(n) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+            <ExpandedItem Optional="true" Condition="t == QCborValue::String &amp;&amp; container-&gt;flag(n) &amp; 4">
                 container-&gt;byteDataAt(n)-&gt;u16(),[container-&gt;byteDataAt(n)-&gt;len/2]su
             </ExpandedItem>
-            <ExpandedItem Condition="t == QCborValue::String &amp;&amp; !(container-&gt;flag(n) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16)">
+            <ExpandedItem Optional="true" Condition="t == QCborValue::String &amp;&amp; !(container-&gt;flag(n) &amp; 4)">
                 container-&gt;byteDataAt(n)-&gt;str(),[container-&gt;byteDataAt(n)-&gt;len]s8
+            </ExpandedItem>
+            <!-- dynamic path: DLL-qualified container_d, used as fallback when static path fails -->
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Array">container_d(),view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Map">container_d(),view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::Uuid">container_d(),view(bytesAtOne)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::ByteArray">
+                container_d()-&gt;byteDataAt(n)-&gt;bytes(),[container_d()-&gt;byteDataAt(n)-&gt;len]hv
+            </ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::String &amp;&amp; container_d()-&gt;flag(n) &amp; 4">
+                container_d()-&gt;byteDataAt(n)-&gt;u16(),[container_d()-&gt;byteDataAt(n)-&gt;len/2]su
+            </ExpandedItem>
+            <ExpandedItem Optional="true" Condition="t == QCborValue::String &amp;&amp; !(container_d()-&gt;flag(n) &amp; 4)">
+                container_d()-&gt;byteDataAt(n)-&gt;str(),[container_d()-&gt;byteDataAt(n)-&gt;len]s8
             </ExpandedItem>
         </Expand>
     </Type>
 
     <Type Name="QCborContainerPrivate">
         <Intrinsic
-                Name="self" Expression="(Qt6Cored.dll!QCborContainerPrivate*)this" />
-        <Intrinsic
-                Name="el" Expression="self()-&gt;elements.d.ptr[n]">
+                Name="el" Expression="elements.d.ptr[n]">
             <Parameter Name="n" Type="long long" />
         </Intrinsic>
         <Intrinsic
-                Name="flag" Expression="*((int*)&amp;self()-&gt;elements.d.ptr[n].flags)">
+                Name="flag" Expression="*((int*)&amp;elements.d.ptr[n].flags)">
             <Parameter Name="n" Type="long long" />
         </Intrinsic>
         <Intrinsic
                 Name="byteDataAt"
-                Expression="((Qt6Cored.dll!QtCbor::ByteData*)(self()-&gt;data.d.ptr + el(n).value))">
+                Expression="((QtCbor::ByteData*)(data.d.ptr + el(n).value))">
             <Parameter Name="n" Type="long long" />
         </Intrinsic>
 
         <Expand>
             <!-- Arrays -->
-            <CustomListItems Condition="self()-&gt;elements.d.size &gt; 0" IncludeView="arr">
+            <CustomListItems Condition="elements.d.size &gt; 0" IncludeView="arr">
                 <Variable Name="i" InitialValue="0" />
-                <Loop Condition="i &lt; self()-&gt;elements.d.size">
-                    <If Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::HasByteData">
+                <Loop Condition="i &lt; elements.d.size">
+                    <If Condition="flag(i) &amp; QtCbor::Element::HasByteData">
                         <If Condition="el(i).type == QCborValue::Type::String">
-                            <If Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+                            <If Condition="flag(i) &amp; QtCbor::Element::StringIsUtf16">
                                 <Item Name="[{i}]">byteDataAt(i)-&gt;u16(),[byteDataAt(i)-&gt;len/2]su</Item>
                             </If>
                             <Else>
@@ -1341,7 +1377,7 @@ SPDX-License-Identifier: MIT
                             <Item Name="[{i}]">byteDataAt(i)-&gt;bytes(),[byteDataAt(i)-&gt;len]hv</Item>
                         </Else>
                     </If>
-                    <Elseif Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::IsContainer">
+                    <Elseif Condition="flag(i) &amp; QtCbor::Element::IsContainer">
                         <If Condition="el(i).type == QCborValue::Type::Array">
                             <Item Name="[{i}]">el(i).container,view(arr)na</Item>
                         </If>
@@ -1357,7 +1393,7 @@ SPDX-License-Identifier: MIT
             </CustomListItems>
 
             <!-- Maps/Objects -->
-            <CustomListItems Condition="self()-&gt;elements.d.size &gt; 0" IncludeView="map">
+            <CustomListItems Condition="elements.d.size &gt; 0" IncludeView="map">
                 <!-- keys can be anything in CBOR. Only strings and simple types are supported as keys (others would bloat the file) -->
                 <Variable Name="key8" InitialValue="(const char *)0" />
                 <Variable Name="key16" InitialValue="(const char16_t *)0" />
@@ -1365,10 +1401,10 @@ SPDX-License-Identifier: MIT
                 <Variable Name="strKey" InitialValue="true"/>
                 <Variable Name="len" InitialValue="0" />
                 <Variable Name="i" InitialValue="0" />
-                <Loop Condition="i &lt; self()-&gt;elements.d.size">
+                <Loop Condition="i &lt; elements.d.size">
                     <If Condition="(i&amp;1) == 0">
                         <!-- even elements are keys -->
-                        <If Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+                        <If Condition="flag(i) &amp; QtCbor::Element::StringIsUtf16">
                             <!-- utf16 key -->
                             <Exec>key8 = nullptr</Exec>
                             <Exec>key16 = byteDataAt(i)-&gt;u16()</Exec>
@@ -1392,9 +1428,9 @@ SPDX-License-Identifier: MIT
                     </If>
                     <Else>
                         <!-- odd elements are values -->
-                        <If Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::HasByteData">
+                        <If Condition="flag(i) &amp; QtCbor::Element::HasByteData">
                             <If Condition="el(i).type == QCborValue::Type::String">
-                                <If Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+                                <If Condition="flag(i) &amp; QtCbor::Element::StringIsUtf16">
                                     <!-- utf16 strings -->
                                     <If Condition="key16">
                                         <Item Name="[{key16,[len]su}]">byteDataAt(i)-&gt;u16(),[byteDataAt(i)-&gt;len/2]su</Item>
@@ -1432,7 +1468,7 @@ SPDX-License-Identifier: MIT
                                 </Else>
                             </Else>
                         </If>
-                        <Elseif Condition="flag(i) &amp; Qt6Cored.dll!QtCbor::Element::IsContainer">
+                        <Elseif Condition="flag(i) &amp; QtCbor::Element::IsContainer">
                             <If Condition="el(i).type == QCborValue::Type::Array">
                                 <!-- arrays -->
                                 <If Condition="key16">
@@ -1475,10 +1511,10 @@ SPDX-License-Identifier: MIT
                 </Loop>
             </CustomListItems>
 
-            <ExpandedItem IncludeView="stringAtOne" Condition="flag(1) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
+            <ExpandedItem IncludeView="stringAtOne" Condition="flag(1) &amp; QtCbor::Element::StringIsUtf16">
                 byteDataAt(1)-&gt;u16(),[byteDataAt(1)-&gt;len/2]su
             </ExpandedItem>
-            <ExpandedItem IncludeView="stringAtOne" Condition="!(flag(1) &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16)">
+            <ExpandedItem IncludeView="stringAtOne" Condition="!(flag(1) &amp; QtCbor::Element::StringIsUtf16)">
                 byteDataAt(1)-&gt;str(),[byteDataAt(1)-&gt;len]s8
             </ExpandedItem>
             <ExpandedItem IncludeView="bytesAtOne">
@@ -1488,9 +1524,9 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QtCbor::ByteData">
-        <Intrinsic Name="str" Expression="(const char *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
-        <Intrinsic Name="bytes" Expression="(const uint8_t *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
-        <Intrinsic Name="u16" Expression="(const char16_t *)(this + 1)" ModuleName="Qt6Cored.dll"></Intrinsic>
+        <Intrinsic Name="str" Expression="(const char *)(this + 1)"></Intrinsic>
+        <Intrinsic Name="bytes" Expression="(const uint8_t *)(this + 1)"></Intrinsic>
+        <Intrinsic Name="u16" Expression="(const char16_t *)(this + 1)"></Intrinsic>
     </Type>
 
     <Type Name="QtCbor::Element">
@@ -1511,63 +1547,63 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QJsonValueRef">
-        <Intrinsic Name="container" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
+        <Intrinsic Name="container_s" Optional="true" Expression="*(QCborContainerPrivate**)&amp;o-&gt;o" />
+        <Intrinsic Name="container_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
         <Intrinsic Name="idx" Expression="is_object ? index * 2 + 1 : index" />
-        <Intrinsic Name="el" Expression="container()-&gt;el(idx())"/>
-        <Intrinsic Name="flags" Expression="container()-&gt;flag(idx())"/>
-        <Intrinsic Name="data" Expression="container()-&gt;byteDataAt(idx())" />
-        <Intrinsic Name="ty" Expression="el().type" />
+        <Intrinsic Name="el_s" Optional="true" Expression="container_s()-&gt;el(idx())"/>
+        <Intrinsic Name="el_d" Optional="true" Expression="container_d()-&gt;el(idx())"/>
+        <Intrinsic Name="flags_s" Optional="true" Expression="container_s()-&gt;flag(idx())"/>
+        <Intrinsic Name="flags_d" Optional="true" Expression="container_d()-&gt;flag(idx())"/>
+        <Intrinsic Name="data_s" Optional="true" Expression="(QtCbor::ByteData*)(container_s()-&gt;data.d.ptr + el_s().value)" />
+        <Intrinsic Name="data_d" Optional="true" Expression="(Qt6Cored.dll!QtCbor::ByteData*)(container_d()-&gt;data.d.ptr + el_d().value)" />
 
-        <DisplayString Condition="ty() == QCborValue::Type::String &amp;&amp; flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
-            {data()-&gt;u16(),[data()-&gt;len/2]su}
-        </DisplayString>
-        <DisplayString Condition="ty() == QCborValue::Type::String">
-            {data()-&gt;str(),[data()-&gt;len]s8}
-        </DisplayString>
-        <DisplayString Condition="ty() != QCborValue::Type::Array &amp;&amp; ty() != QCborValue::Type::Map || !el().container">
-            {el()}
-        </DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; flags_s() &amp; QtCbor::Element::StringIsUtf16">{data_s()-&gt;u16(),[data_s()-&gt;len/2]su}</DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String">{data_s()-&gt;str(),[data_s()-&gt;len]s8}</DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; (el_s().type != QCborValue::Type::Array &amp;&amp; el_s().type != QCborValue::Type::Map || !el_s().container)">{el_s()}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; flags_d() &amp; QtCbor::Element::StringIsUtf16">{data_d()-&gt;u16(),[data_d()-&gt;len/2]su}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String">{data_d()-&gt;str(),[data_d()-&gt;len]s8}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; (el_d().type != QCborValue::Type::Array &amp;&amp; el_d().type != QCborValue::Type::Map || !el_d().container)">{el_d()}</DisplayString>
 
         <Expand>
-            <ExpandedItem Condition="ty() == QCborValue::Type::Array">el().container,view(arr)na</ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::Map">el().container,view(map)na</ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::String &amp;&amp; flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
-                data()-&gt;u16(),[data()-&gt;len/2]su
-            </ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::String &amp;&amp; !(flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16)">
-                data()-&gt;str(),[data()-&gt;len]s8
-            </ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::Array">el_s().container,view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::Map">el_s().container,view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; flags_s() &amp; QtCbor::Element::StringIsUtf16">data_s()-&gt;u16(),[data_s()-&gt;len/2]su</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; !(flags_s() &amp; QtCbor::Element::StringIsUtf16)">data_s()-&gt;str(),[data_s()-&gt;len]s8</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::Array">el_d().container,view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::Map">el_d().container,view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; flags_d() &amp; QtCbor::Element::StringIsUtf16">data_d()-&gt;u16(),[data_d()-&gt;len/2]su</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; !(flags_d() &amp; QtCbor::Element::StringIsUtf16)">data_d()-&gt;str(),[data_d()-&gt;len]s8</ExpandedItem>
         </Expand>
     </Type>
 
     <!-- Same as QJsonValueRef -->
     <Type Name="QJsonValueConstRef">
-        <Intrinsic Name="container" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
+        <Intrinsic Name="container_s" Optional="true" Expression="*(QCborContainerPrivate**)&amp;o-&gt;o" />
+        <Intrinsic Name="container_d" Optional="true" Expression="*(Qt6Cored.dll!QCborContainerPrivate**)&amp;o-&gt;o" />
         <Intrinsic Name="idx" Expression="is_object ? index * 2 + 1 : index" />
-        <Intrinsic Name="el" Expression="container()-&gt;el(idx())"/>
-        <Intrinsic Name="flags" Expression="container()-&gt;flag(idx())"/>
-        <Intrinsic Name="data" Expression="container()-&gt;byteDataAt(idx())" />
-        <Intrinsic Name="ty" Expression="el().type" />
+        <Intrinsic Name="el_s" Optional="true" Expression="container_s()-&gt;el(idx())"/>
+        <Intrinsic Name="el_d" Optional="true" Expression="container_d()-&gt;el(idx())"/>
+        <Intrinsic Name="flags_s" Optional="true" Expression="container_s()-&gt;flag(idx())"/>
+        <Intrinsic Name="flags_d" Optional="true" Expression="container_d()-&gt;flag(idx())"/>
+        <Intrinsic Name="data_s" Optional="true" Expression="(QtCbor::ByteData*)(container_s()-&gt;data.d.ptr + el_s().value)" />
+        <Intrinsic Name="data_d" Optional="true" Expression="(Qt6Cored.dll!QtCbor::ByteData*)(container_d()-&gt;data.d.ptr + el_d().value)" />
 
-        <DisplayString Condition="ty() == QCborValue::Type::String &amp;&amp; flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
-            {data()-&gt;u16(),[data()-&gt;len/2]su}
-        </DisplayString>
-        <DisplayString Condition="ty() == QCborValue::Type::String">
-            {data()-&gt;str(),[data()-&gt;len]s8}
-        </DisplayString>
-        <DisplayString Condition="ty() != QCborValue::Type::Array &amp;&amp; ty() != QCborValue::Type::Map || !el().container">
-            {el()}
-        </DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; flags_s() &amp; QtCbor::Element::StringIsUtf16">{data_s()-&gt;u16(),[data_s()-&gt;len/2]su}</DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String">{data_s()-&gt;str(),[data_s()-&gt;len]s8}</DisplayString>
+        <DisplayString Optional="true" Condition="container_s() &amp;&amp; (el_s().type != QCborValue::Type::Array &amp;&amp; el_s().type != QCborValue::Type::Map || !el_s().container)">{el_s()}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; flags_d() &amp; QtCbor::Element::StringIsUtf16">{data_d()-&gt;u16(),[data_d()-&gt;len/2]su}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String">{data_d()-&gt;str(),[data_d()-&gt;len]s8}</DisplayString>
+        <DisplayString Optional="true" Condition="container_d() &amp;&amp; (el_d().type != QCborValue::Type::Array &amp;&amp; el_d().type != QCborValue::Type::Map || !el_d().container)">{el_d()}</DisplayString>
 
         <Expand>
-            <ExpandedItem Condition="ty() == QCborValue::Type::Array">el().container,view(arr)na</ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::Map">el().container,view(map)na</ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::String &amp;&amp; flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16">
-                data()-&gt;u16(),[data()-&gt;len/2]su
-            </ExpandedItem>
-            <ExpandedItem Condition="ty() == QCborValue::Type::String &amp;&amp; !(flags() &amp; Qt6Cored.dll!QtCbor::Element::StringIsUtf16)">
-                data()-&gt;str(),[data()-&gt;len]s8
-            </ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::Array">el_s().container,view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::Map">el_s().container,view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; flags_s() &amp; QtCbor::Element::StringIsUtf16">data_s()-&gt;u16(),[data_s()-&gt;len/2]su</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_s() &amp;&amp; el_s().type == QCborValue::Type::String &amp;&amp; !(flags_s() &amp; QtCbor::Element::StringIsUtf16)">data_s()-&gt;str(),[data_s()-&gt;len]s8</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::Array">el_d().container,view(arr)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::Map">el_d().container,view(map)na</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; flags_d() &amp; QtCbor::Element::StringIsUtf16">data_d()-&gt;u16(),[data_d()-&gt;len/2]su</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="container_d() &amp;&amp; el_d().type == QCborValue::Type::String &amp;&amp; !(flags_d() &amp; QtCbor::Element::StringIsUtf16)">data_d()-&gt;str(),[data_d()-&gt;len]s8</ExpandedItem>
         </Expand>
     </Type>
 
