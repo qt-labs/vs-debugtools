@@ -1206,10 +1206,13 @@ SPDX-License-Identifier: MIT
         </Expand>
     </Type>
 
-        <Type Name="QJsonDocument">
+    <Type Name="QJsonDocument">
         <DisplayString Condition="!d._Mypair._Myval2">empty</DisplayString>
         <Expand>
-            <ExpandedItem Condition="d._Mypair._Myval2">
+            <ExpandedItem Optional="true" Condition="d._Mypair._Myval2">
+                ((QJsonDocumentPrivate*)(d._Mypair._Myval2))-&gt;value
+            </ExpandedItem>
+            <ExpandedItem Optional="true" Condition="d._Mypair._Myval2">
                 ((Qt6Cored.dll!QJsonDocumentPrivate*)(d._Mypair._Myval2))-&gt;value
             </ExpandedItem>
         </Expand>
@@ -1495,10 +1498,8 @@ SPDX-License-Identifier: MIT
     </Type>
 
     <Type Name="QJsonDocumentPrivate">
-        <Intrinsic
-                        Name="self" Expression="(Qt6Cored.dll!QJsonDocumentPrivate*)this" />
         <Expand>
-            <ExpandedItem>self()-&gt;value</ExpandedItem>
+            <ExpandedItem>value</ExpandedItem>
         </Expand>
     </Type>
 
