@@ -45,6 +45,7 @@ public:
     QDateTime qDateTimeMarquesas = QDateTime::currentDateTimeUtc().toTimeZone(QTimeZone("Pacific/Marquesas"));
     QDateTime qDateTimeShouldFail = QDateTime::currentDateTimeUtc().toTimeZone(QTimeZone("Antarctica/Troll"));
     QDateTime qDateTimeSecOffset = QDateTime::currentDateTimeUtc().toTimeZone(QTimeZone(12 * 3600 + 34 * 60 + 56));
+    QDateTime qDateTimePre1970 = QDateTime(QDate(1930, 10, 23), QTime(11, 3, 45), QTimeZone::UTC);
     QDateTime qDateTimeDefault = QDateTime();
 
     QDir qDir = QDir::currentPath();
