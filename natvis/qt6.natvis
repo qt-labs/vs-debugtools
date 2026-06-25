@@ -1150,8 +1150,8 @@ SPDX-License-Identifier: MIT
         <Intrinsic Name="status_s" Optional="true" Expression="(uintptr_t)priv_s() &amp; 1 ? ((uintptr_t)priv_s() &amp; 0xff) : priv_s()-&gt;m_status.i"/>
         <Intrinsic Name="spec"     Optional="true" Expression="(status() &amp; 0x30) &gt;&gt; 4"/>
         <Intrinsic Name="spec_s"   Optional="true" Expression="(status_s() &amp; 0x30) &gt;&gt; 4"/>
-        <Intrinsic Name="msecs"      Optional="true" Expression="((uintptr_t)d.d) &amp; 1 ? ((__int64)(uintptr_t)d.d &gt;&gt; 8) : priv()-&gt;m_msecs"/>
-        <Intrinsic Name="msecs_s"    Optional="true" Expression="(uintptr_t)priv_s() &amp; 1 ? ((__int64)(uintptr_t)priv_s() &gt;&gt; 8) : priv_s()-&gt;m_msecs"/>
+        <Intrinsic Name="msecs"      Optional="true" Expression="((uintptr_t)d.d) &amp; 1 ? ((long long)(uintptr_t)d.d &gt;&gt; 8) : priv()-&gt;m_msecs"/>
+        <Intrinsic Name="msecs_s"    Optional="true" Expression="(uintptr_t)priv_s() &amp; 1 ? ((long long)(uintptr_t)priv_s() &gt;&gt; 8) : priv_s()-&gt;m_msecs"/>
         <Intrinsic Name="offset"       Optional="true" Expression="priv()-&gt;m_offsetFromUtc"/>
         <Intrinsic Name="offset_s"     Optional="true" Expression="priv_s()-&gt;m_offsetFromUtc"/>
         <Intrinsic Name="absOffset"    Optional="true" Expression="offset() &lt; 0 ? -offset() : offset()"/>
