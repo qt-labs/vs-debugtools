@@ -868,32 +868,32 @@ SPDX-License-Identifier: MIT
         <DisplayString Condition="typeId() == 50">QPersistentModelIndex</DisplayString>
 
          <!-- Static gui classes -->
-        <DisplayString Condition="typeId() == 4096">QFont</DisplayString>
-        <DisplayString Condition="typeId() == 4097">{*(QPixmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4098">QBrush</DisplayString>
-        <DisplayString Condition="typeId() == 4099">{*(QColor*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4100">QPalette</DisplayString>
-        <DisplayString Condition="typeId() == 4101">QIcon</DisplayString>
-        <DisplayString Condition="typeId() == 4102">{*(QImage*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4103">{*(QPolygon*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4104">QRegion</DisplayString>
-        <DisplayString Condition="typeId() == 4105">{*(QBitmap*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4106">QCursor</DisplayString>
-        <DisplayString Condition="typeId() == 4107">QKeySequence</DisplayString>
-        <DisplayString Condition="typeId() == 4108">QPen</DisplayString>
-        <DisplayString Condition="typeId() == 4109">QTextLength</DisplayString>
-        <DisplayString Condition="typeId() == 4110">QTextFormat</DisplayString>
-        <DisplayString Condition="typeId() == 4112">{*(QTransform*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4113">{*(QMatrix4x4*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4114">{*(QVector2D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4115">{*(QVector3D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4116">{*(QVector4D*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4117">{*(QQuaternion*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4118">{*(QPolygonF*) dataStar()}</DisplayString>
-        <DisplayString Condition="typeId() == 4119">QColorSpace</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4096">QFont</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4097">{*(QPixmap*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4098">QBrush</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4099">{*(QColor*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4100">QPalette</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4101">QIcon</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4102">{*(QImage*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4103">{*(QPolygon*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4104">QRegion</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4105">{*(QBitmap*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4106">QCursor</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4107">QKeySequence</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4108">QPen</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4109">QTextLength</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4110">QTextFormat</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4112">{*(QTransform*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4113">{*(QMatrix4x4*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4114">{*(QVector2D*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4115">{*(QVector3D*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4116">{*(QVector4D*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4117">{*(QQuaternion*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4118">{*(QPolygonF*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 4119">QColorSpace</DisplayString>
 
         <!-- Static widget classes -->
-        <DisplayString Condition="typeId() == 8192">{*(QSizePolicy*) dataStar()}</DisplayString>
+        <DisplayString Optional="true" Condition="typeId() == 8192">{*(QSizePolicy*) dataStar()}</DisplayString>
 
         <!-- Unhandled : display the typeId-->
         <DisplayString>({typeId()})</DisplayString>
@@ -915,18 +915,18 @@ SPDX-License-Identifier: MIT
             <ExpandedItem Condition="typeId() == 26">*(QPointF*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == 30">*(QUuid*) dataStar()</ExpandedItem>
 
-            <ExpandedItem Condition="typeId() == 4099">*(QColor*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4097">*(QPixmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4102">*(QImage*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4103">*(QPolygon*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4105">*(QBitmap*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4112">*(QTransform*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4113">*(QMatrix4x4*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4114">*(QVector2D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4115">*(QVector3D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4116">*(QVector4D*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4117">*(QQuaternion*) dataStar()</ExpandedItem>
-            <ExpandedItem Condition="typeId() == 4118">*(QPolygonF*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4099">*(QColor*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4097">*(QPixmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4102">*(QImage*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4103">*(QPolygon*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4105">*(QBitmap*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4112">*(QTransform*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4113">*(QMatrix4x4*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4114">*(QVector2D*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4115">*(QVector3D*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4116">*(QVector4D*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4117">*(QQuaternion*) dataStar()</ExpandedItem>
+            <ExpandedItem Optional="true" Condition="typeId() == 4118">*(QPolygonF*) dataStar()</ExpandedItem>
 
             <ExpandedItem Condition="typeId() == 45">*(QJsonValue*) dataStar()</ExpandedItem>
             <ExpandedItem Condition="typeId() == 46">*(QJsonObject*) dataStar()</ExpandedItem>
