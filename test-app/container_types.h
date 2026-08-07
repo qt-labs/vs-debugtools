@@ -74,4 +74,9 @@ public:
         "three",
         "four",
     };
+
+    QList<QString> empty_list;
+    QMap<int, QString> empty_map;
+    QHash<int, QString> empty_hash;
+    QSet<QString> empty_set;
 };

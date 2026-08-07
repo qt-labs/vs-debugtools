@@ -576,6 +576,7 @@ SPDX-License-Identifier: MIT
         <AlternativeType Name="QMultiMap&lt;*,*&gt;" />
         <Intrinsic Name="p" Optional="true" Expression="d.d"></Intrinsic> <!-- before 6.9 -->
         <Intrinsic Name="p" Optional="true" Expression="d.d.ptr"></Intrinsic> <!-- after 6.9 -->
+        <DisplayString Condition="p()==0">{{ size=0 }}</DisplayString>
         <DisplayString>{{ size={p()-&gt;m._Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
         <Expand>
             <TreeItems>
@@ -631,6 +632,7 @@ SPDX-License-Identifier: MIT
             <Parameter Name="offset" Type="int" />
         </Intrinsic>
 
+        <DisplayString Condition="d==0">{{ size=0 }}</DisplayString>
         <DisplayString>{{ size={d-&gt;size} }}</DisplayString>
         <Expand>
             <CustomListItems MaxItemsPerView="5000">
@@ -775,6 +777,7 @@ SPDX-License-Identifier: MIT
     </Type>
 
    <Type Name="QSet&lt;*&gt;">
+        <DisplayString Condition="q_hash.d==0">{{ size=0 }}</DisplayString>
         <DisplayString>{{ size={q_hash.d-&gt;size} }}</DisplayString>
         <Expand>
             <ExpandedItem>q_hash</ExpandedItem>
