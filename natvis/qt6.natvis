@@ -1074,6 +1074,9 @@ SPDX-License-Identifier: MIT
             <Item Optional="true" Name="[height]"   Condition="pd() != 0">pd()-&gt;h</Item>
             <Item Optional="true" Name="[data]"     Condition="pd() != 0">pd()-&gt;image.d-&gt;data</Item>
             <Item Optional="true" Name="[stride]"   Condition="pd() != 0">pd()-&gt;image.d-&gt;bytes_per_line</Item>
+            <!-- Mirrors QImage's [type] synthetic (Image Watch style element-type hint);
+                 needed here since QPixmap no longer expands through QImage's natvis. -->
+            <Synthetic Name="[type]"><DisplayString>UINT8</DisplayString></Synthetic>
             <Item Optional="true" Name="[channels]" Condition="pd() != 0">pd()-&gt;image.d-&gt;bytes_per_line / pd()-&gt;image.d-&gt;width</Item>
         </Expand>
     </Type>
