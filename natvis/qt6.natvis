@@ -373,10 +373,10 @@ SPDX-License-Identifier: MIT
         <Intrinsic Name="isEmpty" Expression="size==0">
             <Parameter Name="size" Type="int"/>
         </Intrinsic>
-        <Intrinsic Name="memberOffset" Expression="sizeof(QAtomicInt) + sizeof(int) + (sizeof(QString) * count)">
+        <Intrinsic Name="memberOffset" Expression="sizeof(int) + sizeof(int) + (sizeof(QString) * count)">
             <Parameter Name="count" Type="int"/>
         </Intrinsic>
-        <Intrinsic Name="port" Expression="*(int*)(((char*)(d)) + sizeof(QAtomicInt))" />
+        <Intrinsic Name="port" Expression="*(int*)(((char*)(d)) + sizeof(int))" />
         <Intrinsic Name="scheme" Expression="*((QString*)(((char*)(d) + memberOffset(0))))" />
         <Intrinsic Name="username" Expression="*((QString*)(((char*)(d) + memberOffset(1))))" />
         <Intrinsic Name="password" Expression="*((QString*)(((char*)(d) + memberOffset(2))))" />
